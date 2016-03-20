@@ -1,11 +1,10 @@
 ﻿using CSharpSnippets.Logging;
-using System;
 
 namespace CSharpSnippets
 {
     class Program
     {
-        private static readonly ILogger log = LoggerFactory.GetLogger("log");
+        private static readonly ILogger log = LoggerFactory.GetLogger();
 
         static void Main(string[] args)
         {
