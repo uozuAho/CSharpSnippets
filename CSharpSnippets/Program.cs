@@ -1,4 +1,5 @@
-﻿using CSharpSnippets.Logging;
+﻿using CSharpSnippets.Database;
+using CSharpSnippets.Logging;
 
 namespace CSharpSnippets
 {
@@ -8,7 +9,9 @@ namespace CSharpSnippets
 
         static void Main(string[] args)
         {
-            log.Trace("hi from logger");
+            // log.Trace("hi from logger");
+            //SqlClientExamples.DataReaderExample();
+            DapperExamples.SimpleRead();
         }
     }
 }
