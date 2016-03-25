@@ -9,9 +9,16 @@ namespace CSharpSnippets
 
         static void Main(string[] args)
         {
-            // log.Trace("hi from logger");
+            LoggingExample();
             //SqlClientExamples.DataReaderExample();
-            DapperExamples.SimpleRead();
+            //DapperExamples.SimpleRead();
+        }
+
+        static void LoggingExample()
+        {
+            log.Trace("hi from logger");
+            log.Warn("warn");
+            log.Error("error");
         }
     }
 }
