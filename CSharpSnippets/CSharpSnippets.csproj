@@ -58,6 +58,7 @@
     <Compile Include="ArgParse\FluentCommandLineParserExample.cs" />
     <Compile Include="CSharpLanguage\Delegates.cs" />
     <Compile Include="CSharpLanguage\Events.cs" />
+    <Compile Include="CSharpLanguage\GenericTypes\MyGenericType.cs" />
     <Compile Include="Database\DapperExamples.cs" />
     <Compile Include="Database\SqlClientExamples.cs" />
     <Compile Include="Logging\ILogger.cs" />

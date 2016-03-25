@@ -1,6 +1,7 @@
 ﻿using CSharpSnippets.Database;
 using CSharpSnippets.Logging;
 using CSharpSnippets.ArgParse;
+using CSharpSnippets.CSharpLanguage.GenericTypes;
 
 namespace CSharpSnippets
 {
@@ -13,7 +14,8 @@ namespace CSharpSnippets
             //LoggingExample();
             //SqlClientExamples.DataReaderExample();
             //DapperExamples.SimpleRead();
-            FluentCommandLineParserExample.Run();
+            //FluentCommandLineParserExample.Run();
+            GenericTypeExample.Run();
         }
 
         static void LoggingExample()
