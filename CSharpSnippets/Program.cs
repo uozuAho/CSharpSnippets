@@ -1,5 +1,6 @@
 ﻿using CSharpSnippets.Database;
 using CSharpSnippets.Logging;
+using CSharpSnippets.ArgParse;
 
 namespace CSharpSnippets
 {
@@ -9,9 +10,10 @@ namespace CSharpSnippets
 
         static void Main(string[] args)
         {
-            LoggingExample();
+            //LoggingExample();
             //SqlClientExamples.DataReaderExample();
             //DapperExamples.SimpleRead();
+            FluentCommandLineParserExample.Run();
         }
 
         static void LoggingExample()
