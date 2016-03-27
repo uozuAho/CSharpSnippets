@@ -1,7 +1,7 @@
 ﻿using CSharpSnippets.Database;
 using CSharpSnippets.Logging;
 using CSharpSnippets.ArgParse;
-using CSharpSnippets.CSharpLanguage.GenericTypes;
+using CSharpSnippets.CSharpLanguage.Generics;
 
 namespace CSharpSnippets
 {
