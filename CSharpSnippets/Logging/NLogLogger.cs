@@ -1,4 +1,5 @@
 ﻿using NLog;
+using System;
 using System.Globalization;
 
 namespace CSharpSnippets.Logging
@@ -23,6 +24,11 @@ namespace CSharpSnippets.Logging
             Log(LogLevel.Trace, msg, args);
         }
 
+        public void Trace(Exception e, string msg, params object[] args)
+        {
+            Log(LogLevel.Trace, e, msg, args);
+        }
+
         public void Debug(string msg)
         {
             Log(LogLevel.Debug, msg);
@@ -31,6 +37,11 @@ namespace CSharpSnippets.Logging
         public void Debug(string msg, params object[] args)
         {
             Log(LogLevel.Debug, msg, args);
+        }
+
+        public void Debug(Exception e, string msg, params object[] args)
+        {
+            Log(LogLevel.Debug, e, msg, args);
         }
 
         public void Info(string msg)
@@ -43,6 +54,11 @@ namespace CSharpSnippets.Logging
             Log(LogLevel.Info, msg, args);
         }
 
+        public void Info(Exception e, string msg, params object[] args)
+        {
+            Log(LogLevel.Info, e, msg, args);
+        }
+
         public void Warn(string msg)
         {
             Log(LogLevel.Warn, msg);
@@ -51,6 +67,11 @@ namespace CSharpSnippets.Logging
         public void Warn(string msg, params object[] args)
         {
             Log(LogLevel.Warn, msg, args);
+        }
+
+        public void Warn(Exception e, string msg, params object[] args)
+        {
+            Log(LogLevel.Warn, e, msg, args);
         }
 
         public void Error(string msg)
@@ -63,6 +84,11 @@ namespace CSharpSnippets.Logging
             Log(LogLevel.Error, msg, args);
         }
 
+        public void Error(Exception e, string msg, params object[] args)
+        {
+            Log(LogLevel.Error, e, msg, args);
+        }
+
         public void Fatal(string msg)
         {
             Log(LogLevel.Fatal, msg);
@@ -73,18 +99,28 @@ namespace CSharpSnippets.Logging
             Log(LogLevel.Fatal, msg, args);
         }
 
-        public void Log(LogLevel level, string msg, params object[] args)
+        public void Fatal(Exception e, string msg, params object[] args)
         {
-            var e = new LogEventInfo(level, _logger.Name, culture, msg, args);
-            // passing the type of this wrapper lets NLog work out the location of where 
-            // this log call came from, useful for logging 'callsite' info. See 
-            // http://stackoverflow.com/questions/7412156/how-to-retain-callsite-information-when-wrapping-nlog
-            _logger.Log(typeof(NLogLogger), e);
+            Log(LogLevel.Fatal, e, msg, args);
         }
 
         public void Log(LogLevel level, string msg)
         {
-            Log(level, msg, null);
+            Log(level, null, msg, null);
+        }
+
+        public void Log(LogLevel level, string msg, params object[] args)
+        {
+            Log(level, null, msg, args);
+        }
+
+        public void Log(LogLevel level, Exception e, string msg, params object[] args)
+        {
+            var info = new LogEventInfo(level, _logger.Name, culture, msg, args, e);
+            // passing the type of this wrapper lets NLog work out the location of where
+            // this log call came from, useful for logging 'callsite' info. See
+            // http://stackoverflow.com/questions/7412156/how-to-retain-callsite-information-when-wrapping-nlog
+            _logger.Log(typeof(NLogLogger), info);
         }
     }
 }
