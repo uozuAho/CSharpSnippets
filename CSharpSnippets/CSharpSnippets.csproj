@@ -63,7 +63,9 @@
     <Compile Include="Database\SqlClientExamples.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\LoggerFactory.cs" />
+    <Compile Include="Logging\LoggingExample.cs" />
     <Compile Include="Logging\NLogLogger.cs" />
+    <Compile Include="Profiling\ProfilerTester.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
