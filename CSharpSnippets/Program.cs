@@ -4,6 +4,7 @@ using CSharpSnippets.ArgParse;
 using CSharpSnippets.CSharpLanguage.Generics;
 using System;
 using CSharpSnippets.Profiling;
+using CSharpSnippets.Patterns.AbstractFactory;
 
 namespace CSharpSnippets
 {
@@ -16,7 +17,10 @@ namespace CSharpSnippets
             //DapperExamples.SimpleRead();
             //FluentCommandLineParserExample.Run();
             //GenericTypeExample.Run();
-            ProfilerTester.Run();
+            //ProfilerTester.Run();
+
+            // patterns
+            DoFactoryExample.Run();
         }
     }
 }
