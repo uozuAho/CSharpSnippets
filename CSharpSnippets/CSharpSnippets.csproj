@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.2.14.0\lib\net40\CsvHelper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
       <Private>True</Private>
@@ -59,6 +63,7 @@
     <Compile Include="CSharpLanguage\Delegates.cs" />
     <Compile Include="CSharpLanguage\Events.cs" />
     <Compile Include="CSharpLanguage\Generics\MyGenericType.cs" />
+    <Compile Include="Csv\CsvHelperTest.cs" />
     <Compile Include="Database\DapperExamples.cs" />
     <Compile Include="Database\SqlClientExamples.cs" />
     <Compile Include="Logging\ILogger.cs" />
@@ -72,6 +77,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Csv\CsvFiles\HeaderAndFooter.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>

@@ -1,0 +1,5 @@
+﻿Header row with one line, csv headings next row. Header is not csv
+Id,Name,Date
+0,Boris,2016-02-02
+1,Borisette,2016-02-03
+Footer with one line.
