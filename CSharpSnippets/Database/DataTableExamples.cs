@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 
 namespace CSharpSnippets.Database
 {
@@ -23,9 +24,17 @@ namespace CSharpSnippets.Database
             //dt.Rows.Add(row);
 
             // null id
-            row = dt.NewRow();
-            row["name"] = "Bill";
-            dt.Rows.Add(row);
+            //row = dt.NewRow();
+            //row["name"] = "Bill";
+            //dt.Rows.Add(row);
+
+            // add a column after rows added - NOTE: you can add nulls to a not-null column this way
+            dt.Columns.Add(new DataColumn { DataType = typeof(string), ColumnName = "newcol", AllowDBNull = false});
+
+            foreach (DataRow r in dt.Rows)
+            {
+                Console.WriteLine(string.Join(",", r.ItemArray));
+            }
         }
     }
 }
