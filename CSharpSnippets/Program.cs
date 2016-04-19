@@ -18,7 +18,8 @@ namespace CSharpSnippets
             //FluentCommandLineParserExample.Run();
             //GenericTypeExample.Run();
             //ProfilerTester.Run();
-            Csv.CsvHelperTest.Run();
+            //Csv.CsvHelperTest.Run();
+            DataTableExamples.Run();
 
             // patterns
             //DoFactoryExample.Run();
