@@ -12,14 +12,14 @@ namespace CSharpSnippets
     {
         static void Main(string[] args)
         {
-            //LoggingExample.Run();
+            LoggingExample.Run();
             //SqlClientExamples.DataReaderExample();
             //DapperExamples.SimpleRead();
             //FluentCommandLineParserExample.Run();
             //GenericTypeExample.Run();
             //ProfilerTester.Run();
             //Csv.CsvHelperTest.Run();
-            DataTableExamples.Run();
+            //DataTableExamples.Run();
 
             // patterns
             //DoFactoryExample.Run();
