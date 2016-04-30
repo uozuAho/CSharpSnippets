@@ -63,6 +63,9 @@
     <Compile Include="CSharpLanguage\Delegates.cs" />
     <Compile Include="CSharpLanguage\Events.cs" />
     <Compile Include="CSharpLanguage\Generics\MyGenericType.cs" />
+    <Compile Include="CSharpLanguage\Reflection\ReflectionExample.cs" />
+    <Compile Include="CSharpLanguage\Reflection\SillyModel.cs" />
+    <Compile Include="CSharpLanguage\Reflection\SillyModelStore.cs" />
     <Compile Include="Csv\CsvHelperTest.cs" />
     <Compile Include="Database\DapperExamples.cs" />
     <Compile Include="Database\DataTableExamples.cs" />
@@ -75,6 +78,7 @@
     <Compile Include="Profiling\ProfilerTester.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Extensions\UozuDictionary.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -89,7 +93,9 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="CSharpLanguage\ExtensionMethods\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
