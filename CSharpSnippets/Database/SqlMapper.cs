@@ -31,7 +31,6 @@ namespace CSharpSnippets.Database
         }
 
         // from http://www.codeproject.com/Articles/503527/Reflection-optimization-techniques
-        // TODO: need a TryCatch in here to identify errors
         private static Func<SqlDataReader, T> GetReader<T>()
         {
             Delegate resDelegate;
@@ -51,25 +50,15 @@ namespace CSharpSnippets.Database
                     var readValue = Expression.MakeIndex(readerParam, indexerProperty,
                         new[] { Expression.Constant(property.Name) });
                     var underType = Nullable.GetUnderlyingType(property.PropertyType);
-                    Expression assignProperty;
-                    if (underType == null)
-                    { // not a nullable type
-                        assignProperty = Expression.Assign(getProperty,
-                            Expression.Convert(readValue, property.PropertyType));
-                    }
-                    else
-                    { // nullable type
-                        assignProperty = Expression.TryCatch(
-                            Expression.IfThenElse(
-                                Expression.Equal(readValue, Expression.Constant(null, typeof(object))),
-                                Expression.Assign(getProperty, Expression.Constant(null, property.PropertyType)),
-                                Expression.Assign(getProperty, Expression.Convert(readValue, property.PropertyType))
-                            ),
-                            Expression.Catch(typeof(InvalidCastException),
-                                Expression.Throw(Expression.Constant(new InvalidCastException(property.Name)))
-                            )
-                        );
-                    }
+                    // TODO: this try catch is handy for when invalid casts occur, does it significantly
+                    //       impact performance?
+                    var assignProperty = Expression.TryCatch(
+                        Expression.Block(typeof(void),
+                            Expression.Assign(getProperty, Expression.Convert(readValue, property.PropertyType))
+                        ),
+                        Expression.Catch(typeof(InvalidCastException),
+                                Expression.Throw(Expression.Constant(new InvalidCastException(property.Name))))
+                    );
                     statements.Add(assignProperty);
                 }
                 var returnStatement = instanceParam;
