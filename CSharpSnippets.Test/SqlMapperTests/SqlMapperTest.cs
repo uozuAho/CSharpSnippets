@@ -11,7 +11,7 @@ namespace CSharpSnippets.Test.SqlMapperTests
         public const string TestTable = "SqlMapperTestModel";
         public const string ConnString =
             @"Data Source=localhost\sqlexpress2014;Initial Catalog=test1;Integrated Security=SSPI;";
-        public const int NumTestRecords = 1000;
+        public const int NumTestRecords = 1;
 
         [OneTimeSetUp]
         public void Setup()

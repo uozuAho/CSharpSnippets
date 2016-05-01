@@ -71,6 +71,7 @@
     <Compile Include="Database\DapperExamples.cs" />
     <Compile Include="Database\DataTableExamples.cs" />
     <Compile Include="Database\SqlClientExamples.cs" />
+    <Compile Include="Database\SqlMapperSpeedTest.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\LoggerFactory.cs" />
     <Compile Include="Logging\LoggingExample.cs" />
