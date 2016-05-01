@@ -13,6 +13,11 @@ namespace CSharpSnippets.CSharpLanguage.Reflection
             ReadPropertyCachingSpeedTest();
         }
 
+        private static void SqlMappingSpeedTest()
+        {
+
+        }
+
         private static void PrintSillyModelStore()
         {
             foreach (var model in SillyModelStore.GetSillyModelsAsDicts())

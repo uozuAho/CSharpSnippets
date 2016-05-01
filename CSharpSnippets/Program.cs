@@ -21,10 +21,12 @@ namespace CSharpSnippets
             //ProfilerTester.Run();
             //Csv.CsvHelperTest.Run();
             //DataTableExamples.Run();
-            ReflectionExample.Run();
+            // ReflectionExample.Run();
 
             // patterns
             //DoFactoryExample.Run();
+
+            var a = Nullable.GetUnderlyingType(typeof(int)) ?? typeof(int);
 
             Console.WriteLine("Press any key ...");
             Console.ReadKey();
