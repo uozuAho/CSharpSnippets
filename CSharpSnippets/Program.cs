@@ -22,12 +22,11 @@ namespace CSharpSnippets
             //Csv.CsvHelperTest.Run();
             //DataTableExamples.Run();
             // ReflectionExample.Run();
-            SqlMapperSpeedTest.Run();
 
             // patterns
             //DoFactoryExample.Run();
 
-        Console.WriteLine("Press any key ...");
+            Console.WriteLine("Press any key ...");
             Console.ReadKey();
         }
     }

@@ -66,12 +66,10 @@
     <Compile Include="CSharpLanguage\Reflection\ReflectionExample.cs" />
     <Compile Include="CSharpLanguage\Reflection\SillyModel.cs" />
     <Compile Include="CSharpLanguage\Reflection\SillyModelStore.cs" />
-    <Compile Include="Database\SqlMapper.cs" />
     <Compile Include="Csv\CsvHelperTest.cs" />
     <Compile Include="Database\DapperExamples.cs" />
     <Compile Include="Database\DataTableExamples.cs" />
     <Compile Include="Database\SqlClientExamples.cs" />
-    <Compile Include="Database\SqlMapperSpeedTest.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\LoggerFactory.cs" />
     <Compile Include="Logging\LoggingExample.cs" />

@@ -47,7 +47,7 @@ namespace UozuUtils.Test
         }
 
         [Test]
-        public void ReadAllFields()
+        public void Read()
         {
             Assert.AreEqual(true, _reader.Read());
             Assert.AreEqual(0, _reader["id"]);
