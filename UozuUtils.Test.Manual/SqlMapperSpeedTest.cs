@@ -8,7 +8,7 @@ namespace Uozu.Utils.Test.Manual
 {
     class SqlMapperSpeedTest
     {
-        private const int NumTestRecords = 50000;
+        private const int NumTestRecords = 200000;
 
         // use the profiler to see run times of each of the mapping methods. Stopwatch is misleading...
         public static void Run()
@@ -20,9 +20,10 @@ namespace Uozu.Utils.Test.Manual
             var reader = new MockDataReader(testTable);
             stopwatch.Start();
             while (reader.Read())
-                models.Add(SqlMapper.MapObjectWithReflection<SqlMapperTestModel>(reader));
+                models.Add(MapModelHardCoded(reader));
             stopwatch.Stop();
-            Console.WriteLine($"Using pure reflection: read {NumTestRecords} in {stopwatch.ElapsedMilliseconds} ms");
+            var hardCodedMs = stopwatch.ElapsedMilliseconds;
+            Console.WriteLine($"Using hard coded: read {NumTestRecords} in {hardCodedMs} ms");
 
             models.Clear();
             reader = new MockDataReader(testTable);
@@ -31,16 +32,18 @@ namespace Uozu.Utils.Test.Manual
             while (reader.Read())
                 models.Add(SqlMapper.MapObjectWithCachedReflection<SqlMapperTestModel>(reader));
             stopwatch.Stop();
-            Console.WriteLine($"Using cached expressions: read {NumTestRecords} in {stopwatch.ElapsedMilliseconds} ms");
+            var timesHardCodedMs = (float) stopwatch.ElapsedMilliseconds / hardCodedMs;
+            Console.WriteLine($"Using cached expressions: read {NumTestRecords} in {stopwatch.ElapsedMilliseconds} ms ({timesHardCodedMs}x) ");
 
             models.Clear();
             reader = new MockDataReader(testTable);
             stopwatch.Reset();
             stopwatch.Start();
             while (reader.Read())
-                models.Add(MapModelHardCoded(reader));
+                models.Add(SqlMapper.MapObjectWithReflection<SqlMapperTestModel>(reader));
             stopwatch.Stop();
-            Console.WriteLine($"Using hard coded: read {NumTestRecords} in {stopwatch.ElapsedMilliseconds} ms");
+            timesHardCodedMs = (float)stopwatch.ElapsedMilliseconds / hardCodedMs;
+            Console.WriteLine($"Using pure reflection: read {NumTestRecords} in {stopwatch.ElapsedMilliseconds} ms ({timesHardCodedMs}x)");
         }
 
         private static SqlMapperTestModel MapModelHardCoded(IDataReader reader)

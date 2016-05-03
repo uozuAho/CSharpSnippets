@@ -31,6 +31,10 @@ namespace Uozu.Utils.Database
         }
 
         // from http://www.codeproject.com/Articles/503527/Reflection-optimization-techniques
+        // Quick testing shows that this is about 1.5 - 2x as slow as hard-coded reading,
+        // while pure reflection is 4-5x as slow.
+        // TODO: This doesn't exactly match my hard-coded reader. Change it to match this for a more
+        //       meaningful speed comparison.
         private static Func<IDataReader, T> GetReader<T>()
         {
             Delegate readerDelegate;
@@ -47,8 +51,7 @@ namespace Uozu.Utils.Database
                     var getProperty = Expression.Property(instanceParam, property);
                     var readValue = Expression.MakeIndex(readerParam, indexerProperty,
                         new[] { Expression.Constant(property.Name) });
-                    // TODO: this try catch is handy for when invalid casts occur, does it significantly
-                    //       impact performance?
+                    // This try catch is handy for when invalid casts occur. Doesn't affect performance too much.
                     var assignProperty = Expression.TryCatch(
                         Expression.Block(typeof(void),
                             Expression.IfThenElse(
