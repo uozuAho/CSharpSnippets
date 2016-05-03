@@ -35,7 +35,7 @@ namespace CSharpSnippets.Csv
                 {
                     Console.WriteLine(csv.GetRecord<CsvRow>());
                 }
-                catch (CsvTypeConverterException e)
+                catch (CsvTypeConverterException)
                 {
                     Console.WriteLine("Error converting row:");
                     Console.WriteLine(string.Join(csv.Configuration.Delimiter, csv.CurrentRecord));
