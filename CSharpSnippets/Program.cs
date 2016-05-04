@@ -14,7 +14,7 @@ namespace CSharpSnippets
         static void Main(string[] args)
         {
             //LoggingExample.Run();
-            //SqlClientExamples.DataReaderExample();
+            SqlClientExamples.DataReaderExample();
             //DapperExamples.SimpleRead();
             //FluentCommandLineParserExample.Run();
             //GenericTypeExample.Run();

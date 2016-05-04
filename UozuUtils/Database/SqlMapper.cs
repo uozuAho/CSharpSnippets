@@ -2,7 +2,10 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 
 namespace Uozu.Utils.Database
 {
@@ -47,6 +50,32 @@ namespace Uozu.Utils.Database
                 property.SetValue(t, cval);
             }
             return t;
+        }
+
+        public static string GetInsertCmdWithReflection<T>(string tableName, T obj)
+        {
+            var colList = new StringBuilder("(");
+            var paramList = new StringBuilder("(");
+            foreach (var property in typeof(T).GetProperties())
+            {
+                var name = property.Name;
+                var type = property.PropertyType;
+                colList.Append(name).Append(",");
+                paramList.Append("@").Append(name).Append(",");
+            }
+            colList.Remove(colList.Length - 1, 1).Append(")");
+            paramList.Remove(paramList.Length - 1, 1).Append(")");
+            var cmd = new StringBuilder("insert into [").Append(tableName).Append("] ")
+                .Append(colList).Append(" values ").Append(paramList).Append(";");
+            return cmd.ToString();
+        }
+
+        public static void AddParameters<T>(SqlCommand cmd, T obj)
+        {
+            foreach (var property in typeof(T).GetProperties())
+            {
+                cmd.Parameters.AddWithValue("@" + property.Name, property.GetValue(obj));
+            }
         }
 
         /// <summary>

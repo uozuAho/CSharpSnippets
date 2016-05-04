@@ -123,5 +123,18 @@ namespace UozuUtils.Test.Database
             Assert.That(() => SqlMapper.MapObjectWithReflection<IncorrectModelNonNullable>(reader),
                 Throws.ArgumentException);
         }
+
+        private class SimpleObj
+        {
+            public int id { get; set; }
+            public string name { get; set; }
+        }
+
+        [Test]
+        public void GetInsertCmd()
+        {
+            var cmd = SqlMapper.GetInsertCmdWithReflection("myTable", new SimpleObj { id = 1, name = "bert" });
+            Assert.AreEqual("insert into [myTable] (id,name) values (@id,@name);", cmd);
+        }
     }
 }
