@@ -60,7 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MockDataReaderTest.cs" />
+    <Compile Include="Database\MockDataReaderTest.cs" />
+    <Compile Include="Database\SqlMapperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
