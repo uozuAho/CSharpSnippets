@@ -11,13 +11,13 @@ namespace Uozu.Utils.Database
         private static ConcurrentDictionary<Type, Delegate> ExpressionCache =
                        new ConcurrentDictionary<Type, Delegate>();
 
-        public static T MapObjectWithCachedReflection<T>(IDataReader reader) where T : new()
+        public static T MapObjectWithCachedReflection<T>(IDataRecord reader) where T : new()
         {
             var readRow = GetReader<T>();
             return readRow(reader);
         }
 
-        public static T MapObjectWithReflection<T>(IDataReader reader) where T : new()
+        public static T MapObjectWithReflection<T>(IDataRecord reader) where T : new()
         {
             var t = new T();
             foreach (var property in typeof(T).GetProperties())
@@ -31,11 +31,11 @@ namespace Uozu.Utils.Database
         }
 
         // from http://www.codeproject.com/Articles/503527/Reflection-optimization-techniques
-        // Quick testing shows that this is about 1.5 - 2x as slow as hard-coded reading,
+        // Quick testing shows that this performs at similar speed to hard-coded reading,
         // while pure reflection is 4-5x as slow.
-        // TODO: This doesn't exactly match my hard-coded reader. Change it to match this for a more
-        //       meaningful speed comparison.
-        private static Func<IDataReader, T> GetReader<T>()
+        // TODO: more tests of this to see how it fails with bad models, readers etc. Needs to be
+        //       debuggable
+        private static Func<IDataRecord, T> GetReader<T>() where T : new()
         {
             Delegate readerDelegate;
             if (!ExpressionCache.TryGetValue(typeof(T), out readerDelegate))
@@ -43,7 +43,7 @@ namespace Uozu.Utils.Database
                 var indexerProperty = typeof(IDataRecord).GetProperty("Item", new[] { typeof(string) });
                 var statements = new List<Expression>();
                 var instanceParam = Expression.Variable(typeof(T));
-                var readerParam = Expression.Parameter(typeof(IDataReader));
+                var readerParam = Expression.Parameter(typeof(IDataRecord));
                 var createInstance = Expression.Assign(instanceParam, Expression.New(typeof(T)));
                 statements.Add(createInstance);
                 foreach (var property in typeof(T).GetProperties())
@@ -68,11 +68,11 @@ namespace Uozu.Utils.Database
                 var returnStatement = instanceParam;
                 statements.Add(returnStatement);
                 var body = Expression.Block(instanceParam.Type, new[] { instanceParam }, statements.ToArray());
-                var lambda = Expression.Lambda<Func<IDataReader, T>>(body, readerParam);
+                var lambda = Expression.Lambda<Func<IDataRecord, T>>(body, readerParam);
                 readerDelegate = lambda.Compile();
                 ExpressionCache[typeof(T)] = readerDelegate;
             }
-            return (Func<IDataReader, T>)readerDelegate;
+            return (Func<IDataRecord, T>)readerDelegate;
         }
     }
 }

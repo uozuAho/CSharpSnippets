@@ -22,6 +22,7 @@ namespace UozuUtils.Test
             _readerTable.Columns.Add(new DataColumn { ColumnName = "myBigInt", DataType = typeof(long), AllowDBNull = true });
             _readerTable.Columns.Add(new DataColumn { ColumnName = "myTinyInt", DataType = typeof(byte), AllowDBNull = true });
             _readerTable.Columns.Add(new DataColumn { ColumnName = "mySmallInt", DataType = typeof(short), AllowDBNull = true });
+            _readerTable.Columns.Add(new DataColumn { ColumnName = "myNullableInt", DataType = typeof(short), AllowDBNull = true });
             _readerTable.Columns.Add(new DataColumn { ColumnName = "myFloat", DataType = typeof(float), AllowDBNull = true });
             _readerTable.Columns.Add(new DataColumn { ColumnName = "myNvarchar", DataType = typeof(string), AllowDBNull = true });
             _readerTable.Columns.Add(new DataColumn { ColumnName = "myDateTime", DataType = typeof(DateTime), AllowDBNull = true, DefaultValue = DateTime.Now });
@@ -34,6 +35,7 @@ namespace UozuUtils.Test
                 row["myBigInt"] = (long)i;
                 row["myTinyInt"] = (byte)i;
                 row["mySmallInt"] = (short)i;
+                row["myNullableInt"] = DBNull.Value;
                 row["myFloat"] = (float)i;
                 row["myNvarchar"] = i.ToString();
                 _readerTable.Rows.Add(row);
@@ -51,6 +53,14 @@ namespace UozuUtils.Test
         {
             Assert.AreEqual(true, _reader.Read());
             Assert.AreEqual(0, _reader["id"]);
+            // how to test GUID?
+            Assert.AreEqual(true, _reader["myBit"]);
+            Assert.AreEqual(0, _reader["myBigInt"]);
+            Assert.AreEqual(0, _reader["myTinyInt"]);
+            Assert.AreEqual(0, _reader["mySmallInt"]);
+            Assert.AreEqual(DBNull.Value, _reader["myNullableInt"]);
+            Assert.AreEqual(0f, _reader["myFloat"]);
+            Assert.AreEqual("0", _reader["myNvarchar"]);
         }
     }
 }

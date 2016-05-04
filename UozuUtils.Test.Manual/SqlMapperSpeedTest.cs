@@ -46,21 +46,37 @@ namespace Uozu.Utils.Test.Manual
             Console.WriteLine($"Using pure reflection: read {NumTestRecords} in {stopwatch.ElapsedMilliseconds} ms ({timesHardCodedMs}x)");
         }
 
-        private static SqlMapperTestModel MapModelHardCoded(IDataReader reader)
+        /// <summary>
+        /// Map a record to a SqlMapperTestModel, in the same way as the compiled expression in SqlMapper
+        /// </summary>
+        private static SqlMapperTestModel MapModelHardCoded(IDataRecord record)
         {
             var m = new SqlMapperTestModel();
-            m.id = reader.GetInt32(0);
-            m.otherId = reader.GetGuid(1);
-            m.myBit = reader.GetBoolean(2);
-            m.myBigInt = reader.GetInt64(3);
-            m.myTinyInt = reader.GetByte(4);
-            m.mySmallInt = reader.GetInt16(5);
-            var temp = reader["myNullableInt"];
-            m.myNullableInt = temp == null || temp == DBNull.Value ? null : (int?)temp;
-            m.myFloat = reader.GetFloat(7);
-            m.myNvarchar = reader.GetString(8);
-            m.myDateTime = reader.GetDateTime(9);
+            m.id = GetField<int>(record, "id");
+            m.otherId = GetField<Guid>(record, "otherId");
+            m.myBit = GetField<bool>(record, "myBit");
+            m.myBigInt = GetField<long>(record, "myBigInt");
+            m.myTinyInt = GetField<byte>(record, "myTinyInt");
+            m.mySmallInt = GetField<short>(record, "mySmallInt");
+            m.myNullableInt = GetField<int?>(record, "myNullableInt");
+            m.myFloat = GetField<float>(record, "myFloat");
+            m.myNvarchar = GetField<string>(record, "myNvarchar");
+            m.myDateTime = GetField<DateTime>(record, "myDateTime");
             return m;
+        }
+
+        private static T GetField<T>(IDataRecord record, string fieldName)
+        {
+            try
+            {
+                if (record[fieldName] == DBNull.Value)
+                    return default(T); 
+                return (T) Convert.ChangeType(record[fieldName], typeof(T));
+            }
+            catch (InvalidCastException)
+            {
+                throw new InvalidCastException(fieldName);
+            }
         }
 
         private class SqlMapperTestModel

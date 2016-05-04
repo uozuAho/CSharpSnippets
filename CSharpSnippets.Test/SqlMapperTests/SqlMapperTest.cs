@@ -1,5 +1,4 @@
-﻿using CSharpSnippets.Database;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Data;
 using Uozu.Utils.Database;
