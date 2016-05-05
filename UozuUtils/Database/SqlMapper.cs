@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
@@ -52,6 +51,14 @@ namespace Uozu.Utils.Database
             return t;
         }
 
+        public static SqlCommand GetInsertCommand<T>(string tableName, T obj)
+        {
+            var cmd = new SqlCommand();
+            cmd.CommandText = GetInsertCmdWithReflection(tableName, obj);
+            AddParameters(cmd, obj);
+            return cmd;
+        }
+
         public static string GetInsertCmdWithReflection<T>(string tableName, T obj)
         {
             var colList = new StringBuilder("(");
@@ -87,7 +94,7 @@ namespace Uozu.Utils.Database
         /// Quick testing shows that this performs at similar speed to hard-coded reading,
         /// while pure reflection is 4-5x as slow.
         /// </remarks>
-        private static Func<IDataRecord, T> GetMapper<T>() where T : new()
+        public static Func<IDataRecord, T> GetMapper<T>() where T : new()
         {
             Delegate mapperDelegate;
             if (!ExpressionCache.TryGetValue(typeof(T), out mapperDelegate))

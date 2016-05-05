@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Data;
+using System.Linq;
 using Uozu.Utils.Database;
 
 namespace UozuUtils.Test.Database
@@ -8,6 +9,7 @@ namespace UozuUtils.Test.Database
     [TestFixture]
     class SqlMapperTest
     {
+        private static SqlDbApi TestDb = new SqlDbApi(Config.TestDbConnString);
         private DataTable _testData;
 
         [OneTimeSetUp]
@@ -38,6 +40,8 @@ namespace UozuUtils.Test.Database
                 row["myNvarchar"] = i.ToString();
                 _testData.Rows.Add(row);
             }
+
+            TestDb.ExecuteNonQuery(Config.CreateTestTablesCmd);
         }
 
         private class SqlMapperTestModel
@@ -115,6 +119,9 @@ namespace UozuUtils.Test.Database
                 () => SqlMapper.MapObjectWithCachedReflection<IncorrectModelNonNullable>(reader));
         }
 
+        // TODO: test is good, MapObjectWithReflection doesn't map nullables correctly when
+        //       the model is incorrect. Eg. if int? a = null, a will map to 0 instead of 
+        //       throwing an error
         [Test]
         public void TryToMapNullableToNonNullable_Reflection()
         {
@@ -124,17 +131,35 @@ namespace UozuUtils.Test.Database
                 Throws.ArgumentException);
         }
 
-        private class SimpleObj
+        private class SimpleObject
         {
             public int id { get; set; }
             public string name { get; set; }
+            public bool Equals(SimpleObject other)
+            {
+                return id == other.id && name == other.name;
+            }
         }
 
         [Test]
         public void GetInsertCmd()
         {
-            var cmd = SqlMapper.GetInsertCmdWithReflection("myTable", new SimpleObj { id = 1, name = "bert" });
-            Assert.AreEqual("insert into [myTable] (id,name) values (@id,@name);", cmd);
+            var cmd = SqlMapper.GetInsertCommand("SimpleObject", new SimpleObject { id = 1, name = "bert" });
+            Assert.AreEqual("insert into [SimpleObject] (id,name) values (@id,@name);", cmd.CommandText);
+            Assert.AreEqual(2, cmd.Parameters.Count);
+            Assert.AreEqual(1, cmd.Parameters["@id"].Value);
+            Assert.AreEqual("bert", cmd.Parameters["@name"].Value);
+        }
+
+        [Test]
+        public void Insert()
+        {
+            var testObj = new SimpleObject { id = 1, name = "bert" };
+            TestDb.ExecuteNonQuery(SqlMapper.GetInsertCommand("SimpleObject", testObj));
+            var readObj = TestDb
+                .ExecuteReader("select * from SimpleObject", SqlMapper.GetMapper<SimpleObject>())
+                .Single();
+            Assert.True(readObj.Equals(testObj));
         }
     }
 }
