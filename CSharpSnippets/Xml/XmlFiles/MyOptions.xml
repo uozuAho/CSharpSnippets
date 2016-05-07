@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MyOptions>
+  <Settings>
+    <BgColour value="Red" />
+  </Settings>
+  <Products>
+    <Product>
+      <Id>10</Id>
+      <Name>Icecream</Name>
+      <Price>5.99</Price>
+    </Product>
+    <Product>
+      <Id>11</Id>
+      <Name>pizza</Name>
+      <Price>6.99</Price>
+    </Product>
+  </Products>
+</MyOptions>
