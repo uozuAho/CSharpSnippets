@@ -35,8 +35,9 @@ namespace Uozu.Utils.Database
             }
         }
 
+        // TODO: test this
         // cheers to Dapper for this (https://github.com/StackExchange/dapper-dot-net)
-        public IEnumerable<T> ExecuteReader<T>(string query, Func<IDataReader, T> dataObjectWriter)
+        public IEnumerable<T> ExecuteReader<T>(string query, Func<IDataRecord, T> dataObjectWriter)
         {
             using (var con = CreateNewOpenConnection())
             {
@@ -60,7 +61,7 @@ namespace Uozu.Utils.Database
                         if (!reader.IsClosed)
                         {
                             try   { cmd.Cancel(); }
-                            catch { /* don't spoil the existing exception */ }
+                            catch {} // don't overwrite existing exception
                         }
                         reader.Dispose();
                     }

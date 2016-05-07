@@ -152,7 +152,7 @@ namespace UozuUtils.Test.Database
         }
 
         [Test]
-        public void Insert()
+        public void InsertAndRead()
         {
             var testObj = new SimpleObject { id = 1, name = "bert" };
             TestDb.ExecuteNonQuery(SqlMapper.GetInsertCommand("SimpleObject", testObj));

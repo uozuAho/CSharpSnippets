@@ -6,6 +6,7 @@ using System;
 using CSharpSnippets.Profiling;
 using CSharpSnippets.Patterns.AbstractFactory;
 using CSharpSnippets.CSharpLanguage.Reflection;
+using CSharpSnippets.Xml;
 
 namespace CSharpSnippets
 {
@@ -14,7 +15,8 @@ namespace CSharpSnippets
         static void Main(string[] args)
         {
             //LoggingExample.Run();
-            SqlClientExamples.DataReaderExample();
+            //SqlClientExamples.DataReaderExample();
+            //SqlClientExamples.BulkCopyDataTableExamples();
             //DapperExamples.SimpleRead();
             //FluentCommandLineParserExample.Run();
             //GenericTypeExample.Run();
@@ -22,6 +24,7 @@ namespace CSharpSnippets
             //Csv.CsvHelperTest.Run();
             //DataTableExamples.Run();
             // ReflectionExample.Run();
+            XmlSerializerExample.Run();
 
             // patterns
             //DoFactoryExample.Run();
