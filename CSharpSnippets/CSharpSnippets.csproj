@@ -68,6 +68,9 @@
     <Compile Include="CSharpLanguage\Reflection\SillyModel.cs" />
     <Compile Include="CSharpLanguage\Reflection\SillyModelStore.cs" />
     <Compile Include="Csv\CsvHelperTest.cs" />
+    <Compile Include="Csv\ConfigurableCsv\CsvFile\CsvFile.cs" />
+    <Compile Include="Csv\ConfigurableCsv\CsvFile\CsvFile.Definition.cs" />
+    <Compile Include="Csv\ConfigurableCsv\CsvFile\CsvFileClient.cs" />
     <Compile Include="Database\DapperExamples.cs" />
     <Compile Include="Database\DataTableExamples.cs" />
     <Compile Include="Database\SqlClientExamples.cs" />
@@ -89,6 +92,9 @@
     <None Include="Csv\CsvFiles\HeaderAndFooter.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Csv\ConfigurableCsv\CsvFiles\Person.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -100,6 +106,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Csv\ConfigurableCsv\CsvFiles\PersonDefinition.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Xml\XmlFiles\Cars.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

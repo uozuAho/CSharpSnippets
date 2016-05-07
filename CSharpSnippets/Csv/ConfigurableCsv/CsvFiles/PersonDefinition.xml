@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CsvFileDefinition Name="Person">
+  
+  <Options
+    FirstRowContainsColumnNames="true"
+    Delimiter="," />
+  
+  <Header NumRows="1" />
+  
+  <Columns>
+    <Column Name="Type" Type="int" AllowNull="false"/>
+    <Column Name="Name" Type="string" MaxLength="20" AllowNull="false"/>
+    <Column Name="DateOfBirth" Type="DateTime" AllowNull="false"/>
+    <Column Name="Intro" Type="string" MaxLength="100" AllowNull="true" />
+  </Columns>
+  
+  <Footer NumRows="1" />
+  
+</CsvFileDefinition>
