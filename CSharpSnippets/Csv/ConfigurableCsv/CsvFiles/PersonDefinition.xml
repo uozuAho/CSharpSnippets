@@ -1,19 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <CsvFileDefinition Name="Person">
-  
+
   <Options
     FirstDataRowIsColumnHeadings="true"
     Delimiter="," />
+
+  <Header NumRows="1" StartsWith="1">
+    <NameIndex>1</NameIndex>
+  </Header>
   
-  <Header NumRows="1" />
-  
-  <Columns>
-    <Column Name="1" Type="int" AllowNull="false"/>
-    <Column Name="Name" Type="string" MaxLength="20" AllowNull="false"/>
-    <Column Name="DateOfBirth" Type="DateTime" AllowNull="false"/>
-    <Column Name="Intro" Type="string" MaxLength="100" AllowNull="true" />
-  </Columns>
-  
-  <Footer NumRows="1" />
+  <Data StartsWith="2">
+    <Columns>
+      <DataColumn Name="1" Type="int" AllowNull="false"/>
+      <DataColumn Name="Name" Type="string" MaxLength="20" AllowNull="false"/>
+      <DataColumn Name="DateOfBirth" Type="DateTime" AllowNull="false"/>
+      <DataColumn Name="Intro" Type="string" MaxLength="100" AllowNull="true" />
+    </Columns>
+  </Data>
+
+  <Footer NumRows="1" StartsWith="3">
+    <RowCountIndex>1</RowCountIndex>
+    <ChecksumIndex>2</ChecksumIndex>
+    <ChecksumIndex>3</ChecksumIndex>
+    <ChecksumName>asdf</ChecksumName>
+  </Footer>
   
 </CsvFileDefinition>

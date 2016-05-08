@@ -6,35 +6,79 @@ namespace CSharpSnippets.Csv.ConfigurableCsv.CsvFile
 {
     public class CsvFileClient
     {
-        public static void Run()
+        const string csvFilesDir = "Csv\\ConfigurableCsv\\CsvFiles";
+
+        private CsvFileDefinition _csvDef;
+        private CsvFile _csvFile;
+        private DataTable _dataRows;
+
+        private CsvFileClient(string definitionPath, string csvPath)
         {
-            UseReadPostHeaderRowsAsICsvRow();
+            _csvDef = CsvFileDefinition.Load(definitionPath);
+            _csvFile = new CsvFile(_csvDef, csvPath);
+            _dataRows = CsvFileDefinition.CreateDataTable(_csvDef);
         }
 
-        private static void UseReadPostHeaderRowsAsICsvRow()
+        public static void Run()
         {
-            const string csvFilesDir = "Csv\\ConfigurableCsv\\CsvFiles";
-            var csvdef = CsvFileDefinition.Load(csvFilesDir + "\\PersonDefinition.xml");
-            var csvfile = new CsvFile(csvdef, csvFilesDir + "\\Person.csv");
-            var datatable = CsvFileDefinition.CreateDataTable(csvdef);
-            var rownum = 1 + csvdef.Header.NumRows;
-            foreach (var row in csvfile.ReadRows())
+            var csv = new CsvFileClient(csvFilesDir + "\\PersonDefinition.xml", csvFilesDir + "\\Person.csv");
+            csv.Process();
+        }
+
+        private void Process()
+        {
+            foreach (var row in _csvFile.ReadDataAndFooterRows())
             {
-                var dr = datatable.NewRow();
-                try
-                {
-                    foreach (DataColumn col in datatable.Columns)
-                        dr[col.ColumnName] = row[col.ColumnName];
-                    Console.WriteLine("name: " + row["Name"]);
-                    rownum++;
-                }
-                catch (ArgumentException e)
-                {
-                    Console.WriteLine($"Error reading row {rownum}:");
-                    Console.WriteLine(string.Join(csvdef.Options.Delimiter, row.AsStringArray()));
-                    Console.WriteLine(e.Message);
-                }
+                if (row.AsStringArray()[0].StartsWith(_csvDef.Data.StartsWith))
+                    ProcessDataRow(row);
+                else if (row.AsStringArray()[0].StartsWith(_csvDef.Footer.StartsWith))
+                    ProcessFooterRow(row);
             }
+        }
+
+        private void ProcessDataRow(ICsvRow row)
+        {
+            if (row.AsStringArray().Length != _csvDef.Data.Columns.Length)
+            {
+                OnRowError(row, $"expected {_csvDef.Data.Columns.Length} fields, found {row.AsStringArray().Length}");
+                return;
+            }
+            var dataRow = _dataRows.NewRow();
+            try
+            {
+                foreach (System.Data.DataColumn col in _dataRows.Columns)
+                {
+                    var value = row[col.ColumnName];
+                    if (value != null)
+                        dataRow[col.ColumnName] = value;
+                    else
+                        dataRow[col.ColumnName] = DBNull.Value;
+                }
+                _dataRows.Rows.Add(dataRow);
+                Console.WriteLine("name: " + row["Name"]);
+            }
+            catch (ArgumentException e)
+            {
+                OnRowError(row, e.Message);
+            }
+            catch (NoNullAllowedException e)
+            {
+                OnRowError(row, e.Message);
+            }
+        }
+
+        private void OnRowError(ICsvRow row, string msg)
+        {
+            Console.WriteLine($"Error reading row {row.RowNum}:");
+            Console.WriteLine(string.Join(_csvDef.Options.Delimiter, row.AsStringArray()));
+            Console.WriteLine(msg);
+        }
+
+        private void ProcessFooterRow(ICsvRow row)
+        {
+            var fRowCount = int.Parse(row[_csvDef.Footer.RowCountIndex]);
+            var fChecksum = int.Parse(row[_csvDef.Footer.ChecksumIndex]);
+            Console.WriteLine($"footer row count: {fRowCount}, checksum: {fChecksum}");
         }
     }
 }

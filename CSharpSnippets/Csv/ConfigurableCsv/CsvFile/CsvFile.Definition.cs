@@ -10,7 +10,7 @@ namespace CSharpSnippets.Csv.ConfigurableCsv.CsvFile.Definition
     {
         public Options Options { get; set; }
         public Header Header { get; set; }
-        public Column[] Columns { get; set; }
+        public Data Data { get; set; }
         public Footer Footer { get; set; }
 
         public static CsvFileDefinition Load(string path)
@@ -22,12 +22,12 @@ namespace CSharpSnippets.Csv.ConfigurableCsv.CsvFile.Definition
         public static DataTable CreateDataTable(CsvFileDefinition definition)
         {
             var datatable = new DataTable();
-            foreach (var c in definition.Columns)
+            foreach (var c in definition.Data.Columns)
             {
-                var dtCol = new DataColumn
+                var dtCol = new System.Data.DataColumn
                 {
                     ColumnName = c.Name,
-                    DataType = GetDataColumnType(c.Type),
+                    DataType = StringToType(c.Type),
                     AllowDBNull = c.AllowNull
                 };
                 if (c.Type.Equals("string")) dtCol.MaxLength = c.MaxLength;
@@ -36,7 +36,7 @@ namespace CSharpSnippets.Csv.ConfigurableCsv.CsvFile.Definition
             return datatable;
         }
 
-        public static Type GetDataColumnType(string type)
+        private static Type StringToType(string type)
         {
             switch (type)
             {
@@ -66,9 +66,19 @@ namespace CSharpSnippets.Csv.ConfigurableCsv.CsvFile.Definition
     {
         [XmlAttribute]
         public int NumRows { get; set; }
+        [XmlAttribute]
+        public string StartsWith { get; set; }
+        public int NameIndex { get; set; }
     }
 
-    public class Column
+    public class Data
+    {
+        [XmlAttribute]
+        public string StartsWith { get; set; }
+        public DataColumn[] Columns { get; set; }
+    }
+
+    public class DataColumn
     {
         [XmlAttribute]
         public string Name { get; set; }
@@ -84,5 +94,10 @@ namespace CSharpSnippets.Csv.ConfigurableCsv.CsvFile.Definition
     {
         [XmlAttribute]
         public int NumRows { get; set; }
+        [XmlAttribute]
+        public string StartsWith { get; set; }
+        public int RowCountIndex { get; set; }
+        public int ChecksumIndex { get; set; }
+        public string ChecksumName { get; set; }
     }
 }

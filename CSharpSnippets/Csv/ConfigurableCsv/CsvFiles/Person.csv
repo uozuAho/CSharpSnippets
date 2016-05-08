@@ -4,4 +4,6 @@
 2,sharon,2015-01-01,
 bad row
 2,molly,2014-02-02,
-3,footer bling bloo
+2,missing col
+2,too many cols,2014-08-08,,,,
+3,4,123,footer bling bloo

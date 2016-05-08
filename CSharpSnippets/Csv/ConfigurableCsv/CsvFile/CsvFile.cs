@@ -8,6 +8,7 @@ namespace CSharpSnippets.Csv.ConfigurableCsv.CsvFile
 {
     public interface ICsvRow
     {
+        int RowNum { get; }
         string[] AsStringArray();
         string this[string index] { get; }
         string this[int index] { get; }
@@ -16,6 +17,7 @@ namespace CSharpSnippets.Csv.ConfigurableCsv.CsvFile
     class CsvRow : ICsvRow
     {
         public ICsvReaderRow Row { get; set; }
+        public int RowNum { get; set; }
 
         public CsvRow() {}
 
@@ -46,22 +48,27 @@ namespace CSharpSnippets.Csv.ConfigurableCsv.CsvFile
             _path = path;
         }
 
-        /// <summary>
-        /// Read all rows, ignoring header rows.
-        /// </summary>
-        public IEnumerable<ICsvRow> ReadRows()
+        public IEnumerable<ICsvRow> ReadDataAndFooterRows()
         {
+            int rownum = 0;
             using (var stream = new StreamReader(_path))
             {
                 // skip header rows
                 for (int i = 0; i < _definition.Header.NumRows; i++)
+                {
+                    rownum++;
                     stream.ReadLine();
+                }
                 using (var reader = new CsvReader(stream, CreateCsvConfiguration()))
                 {
+                    if (_definition.Options.FirstDataRowIsColumnHeadings)
+                        rownum++;
                     CsvRow row = new CsvRow();
                     while (reader.Read())
                     {
+                        rownum++;
                         row.Row = reader;
+                        row.RowNum = rownum;
                         yield return row;
                     }
                 }
