@@ -1,16 +1,16 @@
 ﻿using CSharpSnippets.Csv.ConfigurableCsv.CsvFile.Definition;
 using CsvHelper;
 using CsvHelper.Configuration;
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 
 namespace CSharpSnippets.Csv.ConfigurableCsv.CsvFile
 {
     public interface ICsvRow
     {
+        string[] AsStringArray();
         string this[string index] { get; }
+        string this[int index] { get; }
     }
 
     class CsvRow : ICsvRow
@@ -19,7 +19,17 @@ namespace CSharpSnippets.Csv.ConfigurableCsv.CsvFile
 
         public CsvRow() {}
 
+        public string[] AsStringArray()
+        {
+            return Row.CurrentRecord;
+        }
+
         public string this[string index]
+        {
+            get { return Row[index]; }
+        }
+
+        public string this[int index]
         {
             get { return Row[index]; }
         }
@@ -29,7 +39,6 @@ namespace CSharpSnippets.Csv.ConfigurableCsv.CsvFile
     {
         private CsvFileDefinition _definition;
         private string _path;
-        private Dictionary<string, int> _columnOrdinalMap;
 
         public CsvFile(CsvFileDefinition definition, string path)
         {
@@ -37,15 +46,17 @@ namespace CSharpSnippets.Csv.ConfigurableCsv.CsvFile
             _path = path;
         }
 
-        public IEnumerable<ICsvRow> ReadPostHeaderRowsAsICsvRow()
+        /// <summary>
+        /// Read all rows, ignoring header rows.
+        /// </summary>
+        public IEnumerable<ICsvRow> ReadRows()
         {
             using (var stream = new StreamReader(_path))
             {
-                // skip header. TODO: header parsing
-                for (var i = 0; i < _definition.Header.NumRows; i++)
+                // skip header rows
+                for (int i = 0; i < _definition.Header.NumRows; i++)
                     stream.ReadLine();
-
-                using (var reader = new CsvReader(stream, CreateCsvConfiguration(_definition)))
+                using (var reader = new CsvReader(stream, CreateCsvConfiguration()))
                 {
                     CsvRow row = new CsvRow();
                     while (reader.Read())
@@ -57,51 +68,12 @@ namespace CSharpSnippets.Csv.ConfigurableCsv.CsvFile
             }
         }
 
-        public IEnumerable<DataRow> ReadDataRows(Action<int, string[], Exception> onRowReadError = null)
-        {
-            var datatable = CsvFileDefinition.CreateDataTable(_definition);
-            var stream = new StreamReader(_path);
-            // skip header. TODO: header parsing
-            for (var i = 0; i < _definition.Header.NumRows; i++)
-                stream.ReadLine();
-
-            var rownum = 1 + _definition.Header.NumRows;
-            var reader = new CsvReader(stream, CreateCsvConfiguration(_definition));
-            try
-            {
-                while (reader.Read())
-                {
-                    var row = datatable.NewRow();
-                    try
-                    {
-                        foreach (DataColumn col in datatable.Columns)
-                            row[col.ColumnName] = reader[col.ColumnName];
-                        rownum++;
-                    }
-                    catch (ArgumentException e)
-                    {
-                        if (onRowReadError != null)
-                            onRowReadError(rownum, reader.CurrentRecord, e);
-                        else
-                            throw;
-                    }
-                    yield return row;
-                }
-            }
-            finally
-            {
-                reader.Dispose();
-                stream.Dispose();
-                datatable.Dispose();
-            }
-        }
-
-        private static CsvConfiguration CreateCsvConfiguration(CsvFileDefinition definition)
+        private CsvConfiguration CreateCsvConfiguration()
         {
             return new CsvConfiguration
             {
-                Delimiter = definition.Options.Delimiter,
-                HasHeaderRecord = definition.Options.FirstRowContainsColumnNames
+                Delimiter = _definition.Options.Delimiter,
+                HasHeaderRecord = _definition.Options.FirstDataRowIsColumnHeadings
             };
         }
     }

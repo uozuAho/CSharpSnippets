@@ -2,13 +2,13 @@
 <CsvFileDefinition Name="Person">
   
   <Options
-    FirstRowContainsColumnNames="true"
+    FirstDataRowIsColumnHeadings="true"
     Delimiter="," />
   
   <Header NumRows="1" />
   
   <Columns>
-    <Column Name="Type" Type="int" AllowNull="false"/>
+    <Column Name="1" Type="int" AllowNull="false"/>
     <Column Name="Name" Type="string" MaxLength="20" AllowNull="false"/>
     <Column Name="DateOfBirth" Type="DateTime" AllowNull="false"/>
     <Column Name="Intro" Type="string" MaxLength="100" AllowNull="true" />

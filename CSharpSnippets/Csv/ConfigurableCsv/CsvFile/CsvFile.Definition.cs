@@ -57,7 +57,7 @@ namespace CSharpSnippets.Csv.ConfigurableCsv.CsvFile.Definition
     public class Options
     {
         [XmlAttribute]
-        public bool FirstRowContainsColumnNames { get; set; }
+        public bool FirstDataRowIsColumnHeadings { get; set; }
         [XmlAttribute]
         public string Delimiter { get; set; }
     }

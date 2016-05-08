@@ -18,7 +18,7 @@ namespace CSharpSnippets.Csv.ConfigurableCsv.CsvFile
             var csvfile = new CsvFile(csvdef, csvFilesDir + "\\Person.csv");
             var datatable = CsvFileDefinition.CreateDataTable(csvdef);
             var rownum = 1 + csvdef.Header.NumRows;
-            foreach (var row in csvfile.ReadPostHeaderRowsAsICsvRow())
+            foreach (var row in csvfile.ReadRows())
             {
                 var dr = datatable.NewRow();
                 try
@@ -31,29 +31,10 @@ namespace CSharpSnippets.Csv.ConfigurableCsv.CsvFile
                 catch (ArgumentException e)
                 {
                     Console.WriteLine($"Error reading row {rownum}:");
-                    Console.WriteLine(string.Join(",", row));
+                    Console.WriteLine(string.Join(csvdef.Options.Delimiter, row.AsStringArray()));
                     Console.WriteLine(e.Message);
                 }
             }
-        }
-
-        // not so good, error handling's a bit messy, plus you get a row back on error
-        private static void UseReadDataRows()
-        {
-            const string csvFilesDir = "Csv\\CsvToDb\\CsvFiles";
-            var csvdef = CsvFileDefinition.Load(csvFilesDir + "\\PersonDefinition.xml");
-            var csvfile = new CsvFile(csvdef, csvFilesDir + "\\Person.csv");
-            foreach (var row in csvfile.ReadDataRows(OnRowReadError))
-            {
-                Console.WriteLine("name: " + row["Name"]);
-            }
-        }
-
-        private static void OnRowReadError(int rownum, string[] row, Exception e)
-        {
-            Console.WriteLine($"Error reading row {rownum}:");
-            Console.WriteLine(string.Join(",", row));
-            Console.WriteLine(e.Message);
         }
     }
 }
