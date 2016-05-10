@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgParse\FluentCommandLineParserExample.cs" />
+    <Compile Include="CSharpLanguage\Attributes\AttributeExamples.cs" />
     <Compile Include="CSharpLanguage\Delegates.cs" />
     <Compile Include="CSharpLanguage\Events.cs" />
     <Compile Include="CSharpLanguage\ExtensionMethods\ExtensionMethodExample.cs" />

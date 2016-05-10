@@ -8,6 +8,7 @@ using CSharpSnippets.Patterns.AbstractFactory;
 using CSharpSnippets.CSharpLanguage.Reflection;
 using CSharpSnippets.Xml;
 using CSharpSnippets.Csv.ConfigurableCsv.CsvFile;
+using CSharpSnippets.CSharpLanguage.Attributes;
 
 namespace CSharpSnippets
 {
@@ -23,10 +24,11 @@ namespace CSharpSnippets
             //GenericTypeExample.Run();
             //ProfilerTester.Run();
             //Csv.CsvHelperTest.Run();
-            CsvFileClient.Run();
+            //CsvFileClient.Run();
             //DataTableExamples.Run();
             // ReflectionExample.Run();
             //XmlSerializerExample.Run();
+            AttributeExamples.Run();
 
             // patterns
             //DoFactoryExample.Run();
