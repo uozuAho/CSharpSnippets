@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Xml.Linq;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace CSharpSnippets.Xml
@@ -8,34 +11,9 @@ namespace CSharpSnippets.Xml
     {
         public static void Run()
         {
-            //XsdMyOptionsExample();
-            //XsdCarsExample();
-            ManualMyOptionsExample();
-        }
-
-        /// <summary>
-        /// Doesn't work. HTF do you use xsd-generated classes? They're stupid.
-        /// </summary>
-        private static void XsdMyOptionsExample()
-        {
-            var xser = new XmlSerializer(typeof(MyOptions));
-            var myOptions = (MyOptions)xser.Deserialize(new StreamReader("Xml\\XmlFiles\\MyOptions.xml"));
-
-            //how to do this ? S ? S ?? arggh xsd is shit
-            //foreach (var opt in (MyOptionsProducts)myOptions.Items[0])
-            //    Console.WriteLine(opt);
-        }
-
-        /// <summary>
-        /// This works. Pretty simple XML though.
-        /// </summary>
-        private static void XsdCarsExample()
-        {
-            var xser = new XmlSerializer(typeof(Cars));
-            var cars = (Cars)xser.Deserialize(new StreamReader("Xml\\XmlFiles\\Cars.xml"));
-
-            foreach (var car in cars.Items)
-                Console.WriteLine(car.Model);
+            //ManualMyOptionsExample();
+            Console.WriteLine("Validating xml...");
+            ValidateXml("Xml\\MyOptions.xsd", "Xml\\XmlFiles\\MyOptionsBad.xml");
         }
 
         /// <summary>
@@ -53,30 +31,21 @@ namespace CSharpSnippets.Xml
             foreach (var product in myOptions.Products)
                 Console.WriteLine($"{product.Name}: {product.Price}");
         }
-    }
 
-    [XmlRoot("MyOptions")]
-    public class MyHandCodedOptions
-    {
-        public Settings Settings { get; set; }
-        public Product[] Products { get; set; }
-    }
-
-    public class Settings
-    {
-        public BgColour BgColour { get; set; }
-    }
-
-    public class BgColour
-    {
-        [XmlAttribute]
-        public string value { get; set; }
-    }
-
-    public class Product
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public float Price { get; set; }
+        public static void ValidateXml(string xsdPath, string xmlPath)
+        {
+            var schemas = new XmlSchemaSet();
+            schemas.Add(null, xsdPath);
+            var xml = XDocument.Load(xmlPath);
+            var errors = new List<string>();
+            xml.Validate(schemas, (obj, args) =>
+            {
+                errors.Add(args.Message);
+            });
+            foreach (var error in errors)
+            {
+                Console.WriteLine(error);
+            }
+        }
     }
 }

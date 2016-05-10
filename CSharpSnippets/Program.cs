@@ -16,19 +16,22 @@ namespace CSharpSnippets
     {
         static void Main(string[] args)
         {
+            // language
+            //AttributeExamples.Run();
+            //GenericTypeExample.Run();
+            // ReflectionExample.Run();
+
             //LoggingExample.Run();
             //SqlClientExamples.DataReaderExample();
             //SqlClientExamples.BulkCopyDataTableExamples();
             //DapperExamples.SimpleRead();
             //FluentCommandLineParserExample.Run();
-            //GenericTypeExample.Run();
             //ProfilerTester.Run();
             //Csv.CsvHelperTest.Run();
             //CsvFileClient.Run();
             //DataTableExamples.Run();
-            // ReflectionExample.Run();
-            //XmlSerializerExample.Run();
-            AttributeExamples.Run();
+            XmlSerializerExample.Run();
+            //XmlExtraAttributeExample.Run();
 
             // patterns
             //DoFactoryExample.Run();
