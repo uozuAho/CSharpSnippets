@@ -13,6 +13,13 @@ namespace Uozu.Utils.Database
         private static ConcurrentDictionary<Type, Delegate> ExpressionCache =
                        new ConcurrentDictionary<Type, Delegate>();
 
+        private static readonly Dictionary<Type, string> _idTypeMap = new Dictionary<Type, string>
+        {
+            { typeof(int), "int" },
+            { typeof(long), "bigint" },
+            { typeof(Guid), "uniqueidentifier" }
+        };
+
         /// <summary>
         /// Read a record into the given data type.
         /// </summary>
@@ -51,16 +58,46 @@ namespace Uozu.Utils.Database
             return t;
         }
 
-        public static SqlCommand GetInsertCommand<T>(string tableName, T obj)
+        public static SqlCommand GetInsertCommand<T>(T obj)
+        {
+            return GetInsertCommandInternal(obj, null);
+        }
+
+        public static SqlCommand GetInsertCommand<T>(T obj, string tableName)
+        {
+            return GetInsertCommandInternal(obj, tableName);
+        }
+
+        public static SqlCommand GetInsertCommand<T>(T obj, string tableName, string idCol = "id")
+        {
+            return GetInsertCommandInternal(obj, tableName);
+        }
+
+        public static SqlCommand GetInsertAndReturnIdCommand<T>(T obj, Type idType, string idCol = "id")
+        {
+            return GetInsertCommandInternal(obj, null, idCol, idType);
+        }
+
+        // TODO: work out the id type from idCol
+        public static SqlCommand GetInsertAndReturnIdCommand<T>(T obj, string tableName, string idCol, Type idType)
+        {
+            return null;
+            //return GetInsertCommandInternal(obj, tableName, true, idCol, idType);
+        }
+
+        private static SqlCommand GetInsertCommandInternal<T>(T obj, string tableName, string idCol = null, Type idType = null)
         {
             var cmd = new SqlCommand();
-            cmd.CommandText = GetInsertCmdWithReflection(tableName, obj);
+            if (tableName == null)
+                tableName = typeof(T).Name;
+            cmd.CommandText = GetInsertCmdString(obj, tableName, idCol, idType);
             AddParameters(cmd, obj);
             return cmd;
         }
 
-        public static string GetInsertCmdWithReflection<T>(string tableName, T obj)
+        private static string GetInsertCmdString<T>(T obj, string tableName, string idCol, Type idType)
         {
+            bool returnInsertedId = idCol != null && idType != null;
             var colList = new StringBuilder("(");
             var paramList = new StringBuilder("(");
             foreach (var property in typeof(T).GetProperties())
@@ -72,8 +109,19 @@ namespace Uozu.Utils.Database
             }
             colList.Remove(colList.Length - 1, 1).Append(")");
             paramList.Remove(paramList.Length - 1, 1).Append(")");
-            var cmd = new StringBuilder("insert into [").Append(tableName).Append("] ")
+            var cmd = new StringBuilder();
+            if (returnInsertedId)
+            {
+                // TODO: better name for temp table that won't get overwritten by parameter values?
+                cmd.Append("declare @xxx table (id ");
+                // TODO: test unknown types 
+                cmd.Append(_idTypeMap[idType]);
+                cmd.Append("); ");
+            }
+            cmd.Append("insert into [").Append(tableName).Append("] ")
                 .Append(colList).Append(" values ").Append(paramList).Append(";");
+            if (returnInsertedId)
+                cmd.Append(" select id from @xxx;");
             return cmd.ToString();
         }
 

@@ -60,14 +60,26 @@ namespace Uozu.Utils.Database
                     {
                         if (!reader.IsClosed)
                         {
-                            try   { cmd.Cancel(); }
-                            catch {} // don't overwrite existing exception
+                            try { cmd.Cancel(); }
+                            catch { } // don't overwrite existing exception
                         }
                         reader.Dispose();
                     }
                     cmd?.Dispose();
                 }
             }
+        }
+
+        public T Insert<T>(T obj)
+        {
+            using (var con = CreateNewOpenConnection())
+            {
+                using (var cmd = SqlMapper.GetInsertCommand(obj))
+                {
+                    cmd.Connection = con;
+                }
+            }
+            return obj;
         }
 
         private SqlConnection CreateNewOpenConnection()

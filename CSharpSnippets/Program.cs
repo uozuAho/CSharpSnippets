@@ -30,7 +30,7 @@ namespace CSharpSnippets
             //Csv.CsvHelperTest.Run();
             //CsvFileClient.Run();
             //DataTableExamples.Run();
-            XmlSerializerExample.Run();
+            //XmlSerializerExample.Run();
             //XmlExtraAttributeExample.Run();
 
             // patterns
