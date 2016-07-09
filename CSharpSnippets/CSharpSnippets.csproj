@@ -75,6 +75,7 @@
     <Compile Include="Database\DapperExamples.cs" />
     <Compile Include="Database\DataTableExamples.cs" />
     <Compile Include="Database\SqlClientExamples.cs" />
+    <Compile Include="Database\StoredProcs.cs" />
     <Compile Include="Database\TestDb.cs" />
     <Compile Include="Database\TransactionExamples.cs" />
     <Compile Include="Logging\ILogger.cs" />

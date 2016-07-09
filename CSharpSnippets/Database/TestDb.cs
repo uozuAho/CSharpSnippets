@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using System.Data;
+using System.Data.SqlClient;
 
 namespace CSharpSnippets.Database
 {
@@ -12,6 +13,14 @@ namespace CSharpSnippets.Database
         {
             DropAndCreateDb();
             CreateTables(ConnStringTest);
+            CreateStoredProcs(ConnStringTest);
+        }
+
+        public static IDbConnection CreateOpenConnection()
+        {
+            var con = new SqlConnection(ConnStringTest);
+            con.Open();
+            return con;
         }
 
         private static void DropAndCreateDb()
@@ -46,6 +55,16 @@ CREATE TABLE [dbo].[SimpleObject] (
     [id] [int] NOT NULL,
     [name] [nvarchar](50) NULL
 );");
+        }
+
+        private static void CreateStoredProcs(string connstring)
+        {
+            ExecuteNonQuery(connstring,
+@"CREATE PROCEDURE ExampleProc
+    @name nvarchar(30)
+    @number int
+AS
+    SELECT @name, @number, 'something else';");
         }
 
         private static void ExecuteNonQuery(string connstring, string cmdtext)
