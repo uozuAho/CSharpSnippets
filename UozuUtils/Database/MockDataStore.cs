@@ -5,7 +5,7 @@ namespace Uozu.Utils.Database
 {
     public class MockDataStore
     {
-        private Dictionary<string, DataTable> _tables;
+        private Dictionary<string, DataTable> _tables = new Dictionary<string, DataTable>();
 
         public void AddDataTable(DataTable table)
         {

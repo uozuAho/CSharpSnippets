@@ -21,20 +21,23 @@ namespace CSharpSnippets
             //GenericTypeExample.Run();
             // ReflectionExample.Run();
 
-            //LoggingExample.Run();
+            // patterns
+            //DoFactoryExample.Run();
+
+            // database
             //SqlClientExamples.DataReaderExample();
             //SqlClientExamples.BulkCopyDataTableExamples();
             //DapperExamples.SimpleRead();
+            //DataTableExamples.Run();
+            TransactionExamples.Run();
+
+            //LoggingExample.Run();
             //FluentCommandLineParserExample.Run();
             //ProfilerTester.Run();
             //Csv.CsvHelperTest.Run();
             //CsvFileClient.Run();
-            //DataTableExamples.Run();
             //XmlSerializerExample.Run();
             //XmlExtraAttributeExample.Run();
-
-            // patterns
-            //DoFactoryExample.Run();
 
             Console.WriteLine("Press any key ...");
             Console.ReadKey();
