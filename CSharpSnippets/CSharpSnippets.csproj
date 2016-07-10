@@ -122,7 +122,12 @@
     </None>
     <None Include="Xml\xml2cs.bat" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\UozuUtils\UozuUtils.csproj">
+      <Project>{94678E66-43AD-4A74-817F-B5F259A5F507}</Project>
+      <Name>UozuUtils</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Csv\ConfigurableCsv\CsvFiles\PersonDefinition.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

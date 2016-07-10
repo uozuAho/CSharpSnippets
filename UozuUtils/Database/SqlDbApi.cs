@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace Uozu.Utils.Database
 {
-    public class SqlDbApi
+    public class SqlDbApi : IDbApi
     {
         private readonly string _connString;
 
@@ -35,9 +35,25 @@ namespace Uozu.Utils.Database
             }
         }
 
-        // TODO: test this
-        // cheers to Dapper for this (https://github.com/StackExchange/dapper-dot-net)
         public IEnumerable<T> ExecuteReader<T>(string query, Func<IDataRecord, T> dataObjectWriter)
+        {
+            return ExecuteReaderImpl(query, dataObjectWriter, CommandType.Text);
+        }
+
+        public IEnumerable<T> ExecuteReader<T>(string query, Func<IDataRecord, T> dataObjectWriter, CommandType commandType)
+        {
+            return ExecuteReaderImpl(query, dataObjectWriter, commandType);
+        }
+
+        public IEnumerable<T> ExecuteReader<T>(string query, Func<IDataRecord, T> dataObjectWriter,
+            CommandType commandType, params object[] sqlParams)
+        {
+            return ExecuteReaderImpl(query, dataObjectWriter, commandType, sqlParams);
+        }
+
+        // cheers to Dapper for this (https://github.com/StackExchange/dapper-dot-net)
+        private IEnumerable<T> ExecuteReaderImpl<T>(string query, Func<IDataRecord, T> dataObjectWriter,
+            CommandType commandType, params object[] sqlParams)
         {
             using (var con = CreateNewOpenConnection())
             {
@@ -47,6 +63,12 @@ namespace Uozu.Utils.Database
                 {
                     cmd = con.CreateCommand();
                     cmd.CommandText = query;
+                    cmd.CommandType = commandType;
+                    if (sqlParams != null)
+                    {
+                        foreach (var p in sqlParams)
+                            cmd.Parameters.Add(p);
+                    }
                     reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {

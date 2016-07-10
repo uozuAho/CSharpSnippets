@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using Uozu.Utils.Database;
 
 namespace CSharpSnippets.Database
 {
@@ -17,24 +18,12 @@ namespace CSharpSnippets.Database
             }
         }
 
-        // TODO: use SqlDbApi.ExecuteReader for this
         private static IEnumerable<ExampleProcModel> ExecuteExampleProc(string name, int number)
         {
-            using (var con = TestDb.CreateOpenConnection())
-            {
-                using (var cmd = con.CreateCommand())
-                {
-                    cmd.CommandText = "ExampleProc";
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter("@name", name));
-                    cmd.Parameters.Add(new SqlParameter("@number", number));
-                    var reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        yield return DeserialiseExampleProcModel(reader);
-                    }
-                }
-            }
+            IDbApi db = new SqlDbApi(TestDb.ConnStringTest);
+            return db.ExecuteReader("ExampleProc", DeserialiseExampleProcModel, CommandType.StoredProcedure,
+                new SqlParameter("@name", name),
+                new SqlParameter("number", number));
         }
 
         private static ExampleProcModel DeserialiseExampleProcModel(IDataRecord record)
