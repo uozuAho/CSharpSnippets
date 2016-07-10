@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace CSharpSnippets.Database
 {
@@ -10,14 +11,14 @@ namespace CSharpSnippets.Database
         {
             TestDb.DropAndCreate();
             Console.WriteLine("Results from stored proc:");
-            foreach (var m in ExecuteExampleProc())
+            foreach (var m in ExecuteExampleProc("Johnny", 5))
             {
                 Console.WriteLine(m);
             }
         }
 
         // TODO: use SqlDbApi.ExecuteReader for this
-        private static IEnumerable<ExampleProcModel> ExecuteExampleProc()
+        private static IEnumerable<ExampleProcModel> ExecuteExampleProc(string name, int number)
         {
             using (var con = TestDb.CreateOpenConnection())
             {
@@ -25,6 +26,8 @@ namespace CSharpSnippets.Database
                 {
                     cmd.CommandText = "ExampleProc";
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@name", name));
+                    cmd.Parameters.Add(new SqlParameter("@number", number));
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
