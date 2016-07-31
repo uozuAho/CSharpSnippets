@@ -12,7 +12,7 @@ namespace CSharpSnippets.Database
         public static void Run()
         {
             var db = new TestDbApi();
-            db.DropAndCreate();
+            db.DropDbAndCreateAll();
             Console.WriteLine("Results from stored proc:");
             foreach (var m in ExecuteExampleProc("Johnny", 5))
             {

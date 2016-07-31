@@ -5,7 +5,7 @@ using Uozu.Utils.Database;
 
 namespace CSharpSnippets.Database.TestDb
 {
-    partial class TestDbApi
+    class TestDbApi
     {
         public const string DbName = "CSharpSnippets";
         public const string ConnStringMaster = @"Data Source=localhost\sqlexpress2014;Initial Catalog=master; Integrated Security=SSPI;";
@@ -18,6 +18,7 @@ namespace CSharpSnippets.Database.TestDb
         public TestDbApi()
         {
             _testDb = new SqlDbApi(ConnStringTest);
+            Init();
         }
 
         private void Init()
@@ -25,10 +26,25 @@ namespace CSharpSnippets.Database.TestDb
             Person = new Person(_testDb);
         }
 
-        public void DropAndCreate()
+        /// <summary>
+        /// Drop entire db and recreate
+        /// </summary>
+        public void DropDbAndCreateAll()
         {
-            Console.WriteLine("recreating test db...");
+            Console.WriteLine("dropping and recreating test db...");
             DropAndCreateDb();
+            CreateTables();
+            CreateStoredProcs();
+        }
+
+        /// <summary>
+        /// Drop and create all tables, stored procs etc.
+        /// </summary>
+        public void RecreateObjects()
+        {
+            Console.WriteLine("dropping and recreating test db objects...");
+            DropTables();
+            DropStoredProcs();
             CreateTables();
             CreateStoredProcs();
         }
@@ -47,6 +63,14 @@ namespace CSharpSnippets.Database.TestDb
                 "if exists (select * from sys.databases where name='" + DbName + "') " +
                 "drop database " + DbName + "; " +
                 "create database " + DbName + ";");
+        }
+
+        private void DropTables()
+        {
+            _testDb.ExecuteNonQuery(
+@"drop table [dbo].[Person];
+drop table [dbo].[Person2];
+drop table [dbo].[SimpleObject];");
         }
 
         private void CreateTables()
@@ -73,6 +97,12 @@ CREATE TABLE [dbo].[SimpleObject] (
     [id] [int] NOT NULL,
     [name] [nvarchar](50) NULL
 );");
+        }
+
+        private void DropStoredProcs()
+        {
+            _testDb.ExecuteNonQuery(
+@"drop procedure ExampleProc;");
         }
 
         private void CreateStoredProcs()

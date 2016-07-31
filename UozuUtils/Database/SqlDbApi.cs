@@ -35,6 +35,34 @@ namespace Uozu.Utils.Database
             }
         }
 
+        public T ExecuteScalar<T>(string command)
+        {
+            return ExecuteScalarImpl<T>(command);
+        }
+
+        public T ExecuteScalar<T>(string command, params object[] sqlParams)
+        {
+            return ExecuteScalarImpl<T>(command, sqlParams);
+        }
+
+        private T ExecuteScalarImpl<T>(string command, params object[] sqlParams)
+        {
+            using (var con = CreateNewOpenConnection())
+            {
+                using (var cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = command;
+                    if (sqlParams != null)
+                    {
+                        foreach (var p in sqlParams)
+                            cmd.Parameters.Add(p);
+                    }
+                    var result = cmd.ExecuteScalar();
+                    return (T) Convert.ChangeType(result, typeof(T));
+                }
+            }
+        }
+
         public IEnumerable<T> ExecuteReader<T>(string query, Func<IDataRecord, T> dataObjectWriter)
         {
             return ExecuteReaderImpl(query, dataObjectWriter, CommandType.Text);

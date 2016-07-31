@@ -29,8 +29,8 @@ namespace CSharpSnippets
             //SqlClientExamples.BulkCopyDataTableExamples();
             //DapperExamples.SimpleRead();
             //DataTableExamples.Run();
-            //TransactionExamples.Run();
-            StoredProcs.Run();
+            TransactionExamples.Run();
+            //StoredProcs.Run();
 
             //LoggingExample.Run();
             //FluentCommandLineParserExample.Run();
