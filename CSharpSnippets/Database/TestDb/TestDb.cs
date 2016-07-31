@@ -1,21 +1,36 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using Uozu.Utils.Database;
 
-namespace CSharpSnippets.Database
+namespace CSharpSnippets.Database.TestDb
 {
-    class TestDb
+    partial class TestDbApi
     {
         public const string DbName = "CSharpSnippets";
         public const string ConnStringMaster = @"Data Source=localhost\sqlexpress2014;Initial Catalog=master; Integrated Security=SSPI;";
-        public const string ConnStringTest = @"Data Source=localhost\sqlexpress2014;Initial Catalog="+ DbName +"; Integrated Security=SSPI;";
+        public const string ConnStringTest = @"Data Source=localhost\sqlexpress2014;Initial Catalog=" + DbName + "; Integrated Security=SSPI;";
 
-        public static void DropAndCreate()
+        private IDbApi _testDb;
+
+        public Person Person;
+
+        public TestDbApi()
+        {
+            _testDb = new SqlDbApi(ConnStringTest);
+        }
+
+        private void Init()
+        {
+            Person = new Person(_testDb);
+        }
+
+        public void DropAndCreate()
         {
             Console.WriteLine("recreating test db...");
             DropAndCreateDb();
-            CreateTables(ConnStringTest);
-            CreateStoredProcs(ConnStringTest);
+            CreateTables();
+            CreateStoredProcs();
         }
 
         public static IDbConnection CreateOpenConnection()
@@ -27,15 +42,16 @@ namespace CSharpSnippets.Database
 
         private static void DropAndCreateDb()
         {
-            ExecuteNonQuery(ConnStringMaster,
+            var master = new SqlDbApi(ConnStringMaster);
+            master.ExecuteNonQuery(
                 "if exists (select * from sys.databases where name='" + DbName + "') " +
                 "drop database " + DbName + "; " +
                 "create database " + DbName + ";");
         }
 
-        private static void CreateTables(string connstring)
+        private void CreateTables()
         {
-            ExecuteNonQuery(connstring,
+            _testDb.ExecuteNonQuery(
 @"CREATE TABLE [dbo].[Person] (
     [id][int] IDENTITY(1, 1) PRIMARY KEY CLUSTERED NOT NULL,
     [FirstName] [varchar](100) NOT NULL,
@@ -59,28 +75,14 @@ CREATE TABLE [dbo].[SimpleObject] (
 );");
         }
 
-        private static void CreateStoredProcs(string connstring)
+        private void CreateStoredProcs()
         {
-            ExecuteNonQuery(connstring,
+            _testDb.ExecuteNonQuery(
 @"CREATE PROCEDURE ExampleProc
     @name nvarchar(30),
     @number int
 AS
     SELECT @name, @number, 'something else';");
-        }
-
-        private static void ExecuteNonQuery(string connstring, string cmdtext)
-        {
-            using (var con = new SqlConnection(connstring))
-            {
-                con.Open();
-                using (var cmd = con.CreateCommand())
-                {
-                    cmd.CommandText = cmdtext;
-                    cmd.ExecuteNonQuery();
-                }
-                con.Close();
-            }
         }
     }
 }

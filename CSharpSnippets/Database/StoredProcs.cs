@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Uozu.Utils.Database;
+using CSharpSnippets.Database.TestDb;
 
 namespace CSharpSnippets.Database
 {
@@ -10,7 +11,8 @@ namespace CSharpSnippets.Database
     {
         public static void Run()
         {
-            TestDb.DropAndCreate();
+            var db = new TestDbApi();
+            db.DropAndCreate();
             Console.WriteLine("Results from stored proc:");
             foreach (var m in ExecuteExampleProc("Johnny", 5))
             {
@@ -20,7 +22,7 @@ namespace CSharpSnippets.Database
 
         private static IEnumerable<ExampleProcModel> ExecuteExampleProc(string name, int number)
         {
-            IDbApi db = new SqlDbApi(TestDb.ConnStringTest);
+            IDbApi db = new SqlDbApi(TestDbApi.ConnStringTest);
             return db.ExecuteReader("ExampleProc", DeserialiseExampleProcModel, CommandType.StoredProcedure,
                 new SqlParameter("@name", name),
                 new SqlParameter("number", number));
