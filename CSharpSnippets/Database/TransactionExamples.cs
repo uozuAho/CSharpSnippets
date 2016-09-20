@@ -1,5 +1,9 @@
 ﻿using CSharpSnippets.Database.TestDb;
+using CSharpSnippets.Database.TestDb.Models;
+using System;
 using System.Data;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CSharpSnippets.Database
 {
@@ -8,41 +12,45 @@ namespace CSharpSnippets.Database
         public static void Run()
         {
             new TestDbApi().RecreateObjects();
-            asdf();
+            Deadlock();
         }
 
-        // this times out rather than deadlocks. Why? Same application, same connection?
-        // try separate threads
-        public static void asdf()
+        public static void Deadlock()
         {
-            IDbConnection con1;
-            IDbTransaction trans1;
+            var testDb = new TestDbApi();
+            testDb.Person.Insert(new PersonModel { FirstName = "person1", LastName = "asdf", DateOfBirth = DateTime.Now});
+            testDb.Person.Insert(new PersonModel { FirstName = "person2", LastName = "asdf", DateOfBirth = DateTime.Now });
+            testDb.ExecuteNonQuery("insert into Person2 (FirstName, LastName, DateOfBirth) values ('person1', 'asdf', '2016-01-01');");
+            testDb.ExecuteNonQuery("insert into Person2 (FirstName, LastName, DateOfBirth) values ('person2', 'asdf', '2016-01-01');");
+
             var cmd1 =
-                @"insert into SimpleObject values (1, 'a');
-                select * from SimpleObject where id < 10;";
-            DoThing(cmd1, out con1, out trans1);
-
-            IDbConnection con2;
-            IDbTransaction trans2;
+                @"update Person set FirstName = 'person1 updated1' where FirstName = 'person1';
+                waitfor delay '00:00:01';
+                update Person2 set FirstName = 'person2 updated1' where FirstName = 'person2';";
             var cmd2 =
-                @"insert into SimpleObject values (1, 'a');
-                select * from SimpleObject where id < 10;";
-            DoThing(cmd2, out con2, out trans2);
+                @"update Person2 set FirstName = 'person2 updated2' where FirstName = 'person2';
+                waitfor delay '00:00:01';
+                update Person set FirstName = 'person1 updated2' where FirstName = 'person1';";
 
-            trans1.Commit();
-            trans2.Commit();
-            con1.Close();
-            con2.Close();
+            Parallel.Invoke(
+                () => ExecuteInTransaction(cmd1, 0),
+                () => ExecuteInTransaction(cmd2, 0));
         }
 
-        private static void DoThing(string cmd, out IDbConnection con, out IDbTransaction trans)
+        private static void ExecuteInTransaction(string cmd, int preCommitDelayMs)
         {
-            con = TestDbApi.CreateOpenConnection();
-            trans = con.BeginTransaction(IsolationLevel.Serializable);
-            var sqlCmd = con.CreateCommand();
-            sqlCmd.CommandText = cmd;
-            sqlCmd.Transaction = trans;
-            sqlCmd.ExecuteNonQuery();
+            using (var con = TestDbApi.CreateOpenConnection())
+            {
+                using (var trans = con.BeginTransaction(IsolationLevel.Serializable))
+                {
+                    var sqlCmd = con.CreateCommand();
+                    sqlCmd.CommandText = cmd;
+                    sqlCmd.Transaction = trans;
+                    sqlCmd.ExecuteNonQuery();
+                    Thread.Sleep(preCommitDelayMs);
+                    trans.Commit();
+                }
+            }
         }
     }
 }

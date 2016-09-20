@@ -8,8 +8,8 @@ namespace CSharpSnippets.Database.TestDb
     class TestDbApi
     {
         public const string DbName = "CSharpSnippets";
-        public const string ConnStringMaster = @"Data Source=localhost\sqlexpress2014;Initial Catalog=master; Integrated Security=SSPI;";
-        public const string ConnStringTest = @"Data Source=localhost\sqlexpress2014;Initial Catalog=" + DbName + "; Integrated Security=SSPI;";
+        public const string ConnStringMaster = @"Data Source=localhost\sql2016;Initial Catalog=master; Integrated Security=SSPI;";
+        public const string ConnStringTest = @"Data Source=localhost\sql2016;Initial Catalog=" + DbName + "; Integrated Security=SSPI;";
 
         private IDbApi _testDb;
 
@@ -24,6 +24,11 @@ namespace CSharpSnippets.Database.TestDb
         private void Init()
         {
             Person = new Person(_testDb);
+        }
+
+        public void ExecuteNonQuery(string cmd)
+        {
+            _testDb.ExecuteNonQuery(cmd);
         }
 
         /// <summary>
