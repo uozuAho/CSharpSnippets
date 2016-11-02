@@ -9,6 +9,7 @@ using CSharpSnippets.CSharpLanguage.Reflection;
 using CSharpSnippets.Xml;
 using CSharpSnippets.Csv.ConfigurableCsv.CsvFile;
 using CSharpSnippets.CSharpLanguage.Attributes;
+using CSharpSnippets.Extensibility.Mef.CalculatorExample;
 
 namespace CSharpSnippets
 {
@@ -21,6 +22,9 @@ namespace CSharpSnippets
             //GenericTypeExample.Run();
             // ReflectionExample.Run();
 
+            // .NET framework
+            MefCalculatorExample.Run();
+
             // patterns
             //DoFactoryExample.Run();
 
@@ -29,7 +33,7 @@ namespace CSharpSnippets
             //SqlClientExamples.BulkCopyDataTableExamples();
             //DapperExamples.SimpleRead();
             //DataTableExamples.Run();
-            TransactionExamples.Run();
+            //TransactionExamples.Run();
             //StoredProcs.Run();
 
             //LoggingExample.Run();

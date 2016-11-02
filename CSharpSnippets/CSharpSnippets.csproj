@@ -50,6 +50,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -79,6 +80,12 @@
     <Compile Include="Database\TestDb\Models\PersonModel.cs" />
     <Compile Include="Database\TestDb\TestDb.cs" />
     <Compile Include="Database\TransactionExamples.cs" />
+    <Compile Include="Extensibility\Mef\CalculatorExample\Add.cs" />
+    <Compile Include="Extensibility\Mef\CalculatorExample\MefCalculatorExample.cs" />
+    <Compile Include="Extensibility\Mef\CalculatorExample\ICalculator.cs" />
+    <Compile Include="Extensibility\Mef\CalculatorExample\IOperation.cs" />
+    <Compile Include="Extensibility\Mef\CalculatorExample\IOperationData.cs" />
+    <Compile Include="Extensibility\Mef\CalculatorExample\SimpleCalculator.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\LoggerFactory.cs" />
     <Compile Include="Logging\LoggingExample.cs" />
