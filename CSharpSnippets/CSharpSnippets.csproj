@@ -80,6 +80,8 @@
     <Compile Include="Database\DapperExamples.cs" />
     <Compile Include="Database\DataTableExamples.cs" />
     <Compile Include="Database\MigSharp\Migrations\mig_01.cs" />
+    <Compile Include="Database\MigSharp\Migrations\mig_02.cs" />
+    <Compile Include="Database\MigSharp\Migrations\mig_03.cs" />
     <Compile Include="Database\MigSharp\MigSharpExample.cs" />
     <Compile Include="Database\SqlClientExamples.cs" />
     <Compile Include="Database\StoredProcs.cs" />

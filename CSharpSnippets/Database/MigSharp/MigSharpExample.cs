@@ -16,7 +16,9 @@ namespace CSharpSnippets.Database.MigSharp
         {
             _connectionString = connectionString;
             _standardMigrator = new Migrator(connectionString, DbPlatform.SqlServer2014);
-            ScriptTo(@"C:\temp\migsharpexample");
+            MigrateAll();
+            // MigrateTo(2);
+            // ScriptTo(@"C:\temp\migsharpexample");
         }
 
         private static void MigrateAll()
@@ -35,7 +37,7 @@ namespace CSharpSnippets.Database.MigSharp
             if (migrations.ScheduledMigrations.First().Direction == MigrationDirection.Down)
                 Console.WriteLine("Migration direction = down");
             Console.WriteLine($"{migrations.ScheduledMigrations.Count} pending migrations");
-            _standardMigrator.MigrateAll(_assembly);
+            migrations.Execute();
             Console.WriteLine("Done");
         }
 
@@ -45,10 +47,17 @@ namespace CSharpSnippets.Database.MigSharp
             var options = new MigrationOptions();
             options.OnlyScriptSqlTo(dir);
             var migrator = new Migrator(_connectionString, DbPlatform.SqlServer2014, options);
+            IMigrationBatch migrations = null;
             if (timestamp != -1)
-                migrator.MigrateTo(_assembly, timestamp);
+                migrations = migrator.FetchMigrationsTo(_assembly, timestamp);
             else
-                migrator.MigrateAll(_assembly);
+                migrations = migrator.FetchMigrations(_assembly);
+            if (migrations.ScheduledMigrations.First().Direction == MigrationDirection.Down)
+                Console.WriteLine("Migration direction = down");
+            Console.WriteLine($"{migrations.ScheduledMigrations.Count} pending migrations");
+            Console.WriteLine("Writing migration SQL scripts to {dir}");
+            migrations.Execute();
+            Console.WriteLine("Done");
         }
     }
 }
