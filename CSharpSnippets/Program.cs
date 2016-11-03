@@ -10,6 +10,7 @@ using CSharpSnippets.Xml;
 using CSharpSnippets.Csv.ConfigurableCsv.CsvFile;
 using CSharpSnippets.CSharpLanguage.Attributes;
 using CSharpSnippets.Extensibility.Mef.CalculatorExample;
+using CSharpSnippets.Database.MigSharp;
 
 namespace CSharpSnippets
 {
@@ -23,7 +24,7 @@ namespace CSharpSnippets
             // ReflectionExample.Run();
 
             // .NET framework
-            MefCalculatorExample.Run();
+            //MefCalculatorExample.Run();
 
             // patterns
             //DoFactoryExample.Run();
@@ -35,6 +36,7 @@ namespace CSharpSnippets
             //DataTableExamples.Run();
             //TransactionExamples.Run();
             //StoredProcs.Run();
+            MigSharpExample.Run(@"Data Source=localhost\sql2016;Initial Catalog=MigSharpExample;Integrated Security=SSPI;");
 
             //LoggingExample.Run();
             //FluentCommandLineParserExample.Run();

@@ -45,6 +45,10 @@
       <HintPath>..\packages\FluentCommandLineParser.1.4.3\lib\net35\FluentCommandLineParser.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MigSharp, Version=3.1.3.0, Culture=neutral, PublicKeyToken=6cbf6233e7d0373d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MigSharp.3.1.3\lib\net45\MigSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.2.3\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
@@ -75,6 +79,8 @@
     <Compile Include="Csv\ConfigurableCsv\CsvFile\CsvFileClient.cs" />
     <Compile Include="Database\DapperExamples.cs" />
     <Compile Include="Database\DataTableExamples.cs" />
+    <Compile Include="Database\MigSharp\Migrations\mig_01.cs" />
+    <Compile Include="Database\MigSharp\MigSharpExample.cs" />
     <Compile Include="Database\SqlClientExamples.cs" />
     <Compile Include="Database\StoredProcs.cs" />
     <Compile Include="Database\TestDb\Models\PersonModel.cs" />
