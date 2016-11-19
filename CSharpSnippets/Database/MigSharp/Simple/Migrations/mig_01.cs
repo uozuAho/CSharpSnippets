@@ -1,7 +1,7 @@
 ﻿using MigSharp;
 using System.Data;
 
-namespace CSharpSnippets.Database.MigSharp.Migrations
+namespace CSharpSnippets.Database.MigSharp.Migrations.Simple
 {
     [MigrationExport(Tag = "create initial database")]
     class mig_01 : IReversibleMigration

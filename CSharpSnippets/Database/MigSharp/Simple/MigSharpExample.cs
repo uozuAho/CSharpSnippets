@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace CSharpSnippets.Database.MigSharp
+namespace CSharpSnippets.Database.MigSharp.Simple
 {
-    class MigSharpExample
+    class MigSharpSimpleExample
     {
         private static Assembly _assembly = Assembly.GetExecutingAssembly();
         private static string _connectionString;
