@@ -36,10 +36,10 @@ namespace CSharpSnippets
             //DataTableExamples.Run();
             //TransactionExamples.Run();
             //StoredProcs.Run();
-            MigSharpExample.Run(@"Data Source=localhost\sql2016;Initial Catalog=MigSharpExample;Integrated Security=SSPI;");
+            //MigSharpExample.Run(@"Data Source=localhost\sql2016;Initial Catalog=MigSharpExample;Integrated Security=SSPI;");
 
             //LoggingExample.Run();
-            //FluentCommandLineParserExample.Run();
+            FluentCommandLineParserExample.Run();
             //ProfilerTester.Run();
             //Csv.CsvHelperTest.Run();
             //CsvFileClient.Run();

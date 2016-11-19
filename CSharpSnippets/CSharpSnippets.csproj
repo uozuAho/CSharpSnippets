@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommandLine, Version=2.0.275.0, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommandLineParser.2.1.1-beta\lib\net45\CommandLine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
       <HintPath>..\packages\CsvHelper.2.14.0\lib\net40\CsvHelper.dll</HintPath>
       <Private>True</Private>
@@ -64,6 +68,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArgParse\Args.cs" />
+    <Compile Include="ArgParse\CommandLineParserExample.cs" />
     <Compile Include="ArgParse\FluentCommandLineParserExample.cs" />
     <Compile Include="CSharpLanguage\Attributes\AttributeExamples.cs" />
     <Compile Include="CSharpLanguage\Delegates.cs" />

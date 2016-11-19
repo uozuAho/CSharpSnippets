@@ -6,20 +6,25 @@ using System.Text;
 
 namespace CSharpSnippets.ArgParse
 {
-    class Args
-    {
-        public int MyNum { get; set; }
-        public string MyString { get; set; }
-    }
-
     public class FluentCommandLineParserExample
     {
         public static void Run()
         {
-            Run(new string[] { "n", "5", "string", "meh" });
+            Run("/n 5 /string meh");
+            Console.WriteLine("---------------------------");
+            Run("garbage args");
+            Console.WriteLine("---------------------------");
+            Run("-h");
         }
 
-        public static void Run(string[] args)
+        private static void Run(string command)
+        {
+            Console.WriteLine($"parsing '{command}'");
+            var argArray = command.Split();
+            Run(argArray);
+        }
+
+        private static void Run(string[] args)
         {
             var p = new FluentCommandLineParser<Args>();
 
@@ -35,11 +40,26 @@ namespace CSharpSnippets.ArgParse
 
             p.SetupHelp("h", "help")
                 .WithCustomFormatter(new OptionsFormatter())
-                .Callback(text => Console.WriteLine(text));
+                .Callback(text => PrintHelpText(text));
 
-            p.Parse(args);
+            var result = p.Parse(args);
+            if (result.HasErrors)
+            {
+                Console.WriteLine(result.ErrorText);
+            }
+            else if (!result.HelpCalled)
+            {
+                var parsedArgs = p.Object;
+                Console.WriteLine("Read args.");
+                Console.WriteLine($"number: {parsedArgs.MyNum}");
+                Console.WriteLine($"string: {parsedArgs.MyString}");
+            }
+        }
 
-            p.HelpOption.ShowHelp(p.Options);
+        private static void PrintHelpText(string optionsText)
+        {
+            Console.WriteLine("Help text. Options:");
+            Console.WriteLine(optionsText);
         }
     }
 
