@@ -11,6 +11,7 @@ using CSharpSnippets.Csv.ConfigurableCsv.CsvFile;
 using CSharpSnippets.CSharpLanguage.Attributes;
 using CSharpSnippets.Extensibility.Mef.CalculatorExample;
 using CSharpSnippets.Database.MigSharp.Simple;
+using CSharpSnippets.Database.MigSharp.MultiModule;
 
 namespace CSharpSnippets
 {
@@ -36,7 +37,8 @@ namespace CSharpSnippets
             //DataTableExamples.Run();
             //TransactionExamples.Run();
             //StoredProcs.Run();
-            MigSharpSimpleExample.Run(@"Data Source=localhost\sql2016;Initial Catalog=MigSharpExample;Integrated Security=SSPI;");
+            //MigSharpSimpleExample.Run(@"Data Source=localhost\sql2016;Initial Catalog=MigSharpExample;Integrated Security=SSPI;");
+            MigSharpMultiModuleExample.Run(@"Data Source=localhost\sql2016;Initial Catalog=MigSharpExample;Integrated Security=SSPI;");
 
             //LoggingExample.Run();
             //FluentCommandLineParserExample.Run();

@@ -85,6 +85,9 @@
     <Compile Include="Csv\ConfigurableCsv\CsvFile\CsvFileClient.cs" />
     <Compile Include="Database\DapperExamples.cs" />
     <Compile Include="Database\DataTableExamples.cs" />
+    <Compile Include="Database\MigSharp\MultiModule\MigSharpMultiModuleExample.cs" />
+    <Compile Include="Database\MigSharp\MultiModule\Module1\Migrations\mig_01.cs" />
+    <Compile Include="Database\MigSharp\MultiModule\Module2\Migrations\mig_01.cs" />
     <Compile Include="Database\MigSharp\Simple\Migrations\mig_01.cs" />
     <Compile Include="Database\MigSharp\Simple\Migrations\mig_02.cs" />
     <Compile Include="Database\MigSharp\Simple\Migrations\mig_03.cs" />
