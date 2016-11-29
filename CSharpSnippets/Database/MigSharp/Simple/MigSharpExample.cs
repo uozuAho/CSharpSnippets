@@ -25,7 +25,7 @@ namespace CSharpSnippets.Database.MigSharp.Simple
         {
             Console.WriteLine("Updating to latest db version");
             var migrations = _standardMigrator.FetchMigrations(_assembly);
-            Console.WriteLine($"{migrations.ScheduledMigrations.Count} pending migrations");
+            Console.WriteLine($"{migrations.Steps.Count} pending migrations");
             _standardMigrator.MigrateAll(_assembly);
             Console.WriteLine("Done");
         }
@@ -34,9 +34,9 @@ namespace CSharpSnippets.Database.MigSharp.Simple
         {
             Console.WriteLine("Migrating to db migration " + timestamp);
             var migrations = _standardMigrator.FetchMigrationsTo(_assembly, timestamp);
-            if (migrations.ScheduledMigrations.First().Direction == MigrationDirection.Down)
+            if (migrations.Steps.First().Direction == MigrationDirection.Down)
                 Console.WriteLine("Migration direction = down");
-            Console.WriteLine($"{migrations.ScheduledMigrations.Count} pending migrations");
+            Console.WriteLine($"{migrations.Steps.Count} pending migrations");
             migrations.Execute();
             Console.WriteLine("Done");
         }
@@ -52,9 +52,9 @@ namespace CSharpSnippets.Database.MigSharp.Simple
                 migrations = migrator.FetchMigrationsTo(_assembly, timestamp);
             else
                 migrations = migrator.FetchMigrations(_assembly);
-            if (migrations.ScheduledMigrations.First().Direction == MigrationDirection.Down)
+            if (migrations.Steps.First().Direction == MigrationDirection.Down)
                 Console.WriteLine("Migration direction = down");
-            Console.WriteLine($"{migrations.ScheduledMigrations.Count} pending migrations");
+            Console.WriteLine($"{migrations.Steps.Count} pending migrations");
             Console.WriteLine("Writing migration SQL scripts to {dir}");
             migrations.Execute();
             Console.WriteLine("Done");

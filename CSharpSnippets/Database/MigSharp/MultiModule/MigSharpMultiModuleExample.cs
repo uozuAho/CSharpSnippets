@@ -25,7 +25,7 @@ namespace CSharpSnippets.Database.MigSharp.MultiModule
         {
             Console.WriteLine("Updating to latest db version");
             var migrations = _standardMigrator.FetchMigrations(_assembly);
-            Console.WriteLine($"{migrations.ScheduledMigrations.Count} pending migrations");
+            Console.WriteLine($"{migrations.Steps.Count} pending migrations");
             _standardMigrator.MigrateAll(_assembly);
             Console.WriteLine("Done");
         }
