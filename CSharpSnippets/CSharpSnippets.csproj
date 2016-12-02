@@ -60,12 +60,14 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgParse\Args.cs" />
@@ -104,6 +106,8 @@
     <Compile Include="Extensibility\Mef\CalculatorExample\IOperation.cs" />
     <Compile Include="Extensibility\Mef\CalculatorExample\IOperationData.cs" />
     <Compile Include="Extensibility\Mef\CalculatorExample\SimpleCalculator.cs" />
+    <Compile Include="Io\ClassDataPacker.cs" />
+    <Compile Include="Io\Packaging.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\LoggerFactory.cs" />
     <Compile Include="Logging\LoggingExample.cs" />

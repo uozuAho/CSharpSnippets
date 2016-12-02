@@ -13,6 +13,7 @@ using CSharpSnippets.Extensibility.Mef.CalculatorExample;
 using CSharpSnippets.Database.MigSharp.Simple;
 using CSharpSnippets.Database.MigSharp.MultiModule;
 using CSharpSnippets.Database.MigSharp.MultiDb;
+using CSharpSnippets.Io;
 
 namespace CSharpSnippets
 {
@@ -40,8 +41,8 @@ namespace CSharpSnippets
             //StoredProcs.Run();
             //MigSharpSimpleExample.Run(@"Data Source=localhost\sql2016;Initial Catalog=MigSharpExample;Integrated Security=SSPI;");
             //MigSharpMultiModuleExample.Run(@"Data Source=localhost\sql2016;Initial Catalog=MigSharpExample;Integrated Security=SSPI;");
-            MigSharpMultiDbExample.Run(@"Data Source=localhost\sql2016;Initial Catalog=MigSharpExample;Integrated Security=SSPI;",
-                @"Data Source=localhost\sql2016;Initial Catalog=MigSharpExampleOther;Integrated Security=SSPI;");
+            //MigSharpMultiDbExample.Run(@"Data Source=localhost\sql2016;Initial Catalog=MigSharpExample;Integrated Security=SSPI;",
+            //    @"Data Source=localhost\sql2016;Initial Catalog=MigSharpExampleOther;Integrated Security=SSPI;");
 
             //LoggingExample.Run();
             //FluentCommandLineParserExample.Run();
@@ -50,6 +51,7 @@ namespace CSharpSnippets
             //CsvFileClient.Run();
             //XmlSerializerExample.Run();
             //XmlExtraAttributeExample.Run();
+            Packaging.PackagingExample();
 
             Console.WriteLine("Press any key ...");
             Console.ReadKey();
