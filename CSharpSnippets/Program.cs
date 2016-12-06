@@ -13,7 +13,7 @@ using CSharpSnippets.Extensibility.Mef.CalculatorExample;
 using CSharpSnippets.Database.MigSharp.Simple;
 using CSharpSnippets.Database.MigSharp.MultiModule;
 using CSharpSnippets.Database.MigSharp.MultiDb;
-using CSharpSnippets.Io;
+using CSharpSnippets.Serialization;
 
 namespace CSharpSnippets
 {

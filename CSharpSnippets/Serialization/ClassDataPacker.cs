@@ -6,21 +6,32 @@ using System.IO.Packaging;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace CSharpSnippets.Io
+namespace CSharpSnippets.Serialization
 {
     /// <summary>
     /// Import/export arbitrary class data to/from file
     /// Note: This requires inclusion of WindowsBase.dll
     /// </summary>
-    class ClassDataPacker
+    class ClassDataPacker : IDisposable
     {
         private Stream _outputStream;
         private Package _package;
+
+        public ClassDataPacker()
+        {
+        }
 
         public ClassDataPacker(Stream stream)
         {
             _outputStream = stream;
             _package = Package.Open(_outputStream, FileMode.Create);
+        }
+
+        public static ClassDataPacker OpenPack(string path)
+        {
+            var pack = new ClassDataPacker();
+            pack._package = Package.Open(path);
+            return pack;
         }
 
         public void WriteEntity<T>(T entity, Func<T, object> primaryKeySelector) where T : class
@@ -46,18 +57,30 @@ namespace CSharpSnippets.Io
             }
         }
 
+        public PackagePartCollection ListParts()
+        {
+            return _package.GetParts();
+        }
+
+        public T GetEntity<T>(object primaryKey) where T : class
+        {
+            var part = _package.GetPart(BuildPackagePartUri<T>(primaryKey));
+            if (part == null)
+                return null;
+            return Deserialize<T>(part);
+        }
+
         private void SerialiseEntityToPackagePart<T>(Uri partUri, T entity) where T : class
         {
             PackagePart packagePart;
             if (_package.PartExists(partUri))
                 packagePart = _package.GetPart(partUri);
             else
-                packagePart = _package.CreatePart(partUri, System.Net.Mime.MediaTypeNames.Text.Xml, CompressionOption.Maximum);
+                packagePart = _package.CreatePart(partUri, System.Net.Mime.MediaTypeNames.Text.Xml);
 
             if (packagePart == null)
                 return;
 
-            //Serialize the entity to the package part stream
             using (MemoryStream memStream = new MemoryStream())
             {
                 SerializeToStream(memStream, entity);
@@ -72,6 +95,12 @@ namespace CSharpSnippets.Io
         {
             DataContractSerializer serializer = new DataContractSerializer(typeof(T));
             serializer.WriteObject(stream, entity);
+        }
+
+        private static T Deserialize<T>(PackagePart part) where T : class
+        {
+            DataContractSerializer serializer = new DataContractSerializer(typeof(T));
+            return (T)serializer.ReadObject(part.GetStream());
         }
 
         public static Uri BuildPackagePartUri<T>(params object[] primaryKeys) where T : class
@@ -89,6 +118,15 @@ namespace CSharpSnippets.Io
             return new Uri(
                 string.Format(CultureInfo.CurrentCulture, "/{0}/{1}{2}.xml", entityType.Name, typeName, builder),
                 UriKind.Relative);
+        }
+
+        public void Dispose()
+        {
+            if (_package != null)
+            {
+                _package.Flush();
+                _package.Close();
+            }
         }
     }
 }
