@@ -53,6 +53,10 @@
       <HintPath>..\packages\MigSharp.3.2\lib\net45\MigSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.2.3\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
@@ -60,12 +64,14 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgParse\Args.cs" />
@@ -104,6 +110,9 @@
     <Compile Include="Extensibility\Mef\CalculatorExample\IOperation.cs" />
     <Compile Include="Extensibility\Mef\CalculatorExample\IOperationData.cs" />
     <Compile Include="Extensibility\Mef\CalculatorExample\SimpleCalculator.cs" />
+    <Compile Include="Serialization\ClassDataPacker.cs" />
+    <Compile Include="Serialization\JsonNet.cs" />
+    <Compile Include="Serialization\Packaging.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\LoggerFactory.cs" />
     <Compile Include="Logging\LoggingExample.cs" />
@@ -112,6 +121,7 @@
     <Compile Include="Profiling\ProfilerTester.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\TestObj.cs" />
     <Compile Include="Utils\Extensions\UozuDictionary.cs" />
     <Compile Include="Xml\MyOptionsWithExtras.cs" />
     <Compile Include="Xml\MyHandCodedOptions.cs" />
