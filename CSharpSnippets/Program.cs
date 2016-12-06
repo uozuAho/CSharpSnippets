@@ -51,7 +51,8 @@ namespace CSharpSnippets
             //CsvFileClient.Run();
             //XmlSerializerExample.Run();
             //XmlExtraAttributeExample.Run();
-            Packaging.PackagingExample();
+            //Packaging.PackagingExample();
+            JsonNet.JsonNetExample();
 
             Console.WriteLine("Press any key ...");
             Console.ReadKey();
