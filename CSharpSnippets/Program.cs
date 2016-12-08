@@ -52,7 +52,8 @@ namespace CSharpSnippets
             //XmlSerializerExample.Run();
             //XmlExtraAttributeExample.Run();
             //Packaging.PackagingExample();
-            JsonNet.JsonNetExample();
+            //JsonNet.JsonNetExample();
+            JsonNet.JsonNetDeserializeWithoutType();
 
             Console.WriteLine("Press any key ...");
             Console.ReadKey();
