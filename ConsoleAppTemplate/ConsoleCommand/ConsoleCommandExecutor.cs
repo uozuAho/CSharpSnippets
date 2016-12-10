@@ -38,6 +38,11 @@ namespace ConsoleAppTemplate.ConsoleCommand
             RegisterEmptyCommand(new AnonymousCommand(action, summary));
         }
 
+        public IEnumerable<string> GetCommandNamesForCommand(IConsoleCommand command)
+        {
+            return Commands.Where(kv => kv.Value == command).Select(kv => kv.Key);
+        }
+
         public void Execute(string[] args)
         {
             if (args.Length == 0)

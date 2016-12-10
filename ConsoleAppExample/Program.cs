@@ -46,6 +46,7 @@ namespace ConsoleAppExample
             }
         }
 
+        // TODO: move to own file, add options
         private class HelloWorldCommand : BaseConsoleCommand
         {
             public override void Execute(string[] args)

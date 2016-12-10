@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -62,12 +63,38 @@ namespace ConsoleAppTemplate.ConsoleCommand
         protected string GetAvailableCommandsText()
         {
             var sb = new StringBuilder();
-            var maxKeyWidth = _executor.Commands.Keys.Max(k => k.Length);
-            foreach (var c in _executor.Commands)
+            var commandToNames = GetCommandToCommandNamesMap();
+            var maxCommandNamesWidth = commandToNames.Max(kv => GetCommandNamesText(kv.Value).Length);
+            foreach (var kv in commandToNames)
             {
-                sb.Append("  ").Append(c.Key.PadRight(maxKeyWidth + 1)).Append(": ").AppendLine(c.Value.GetSummary());
+                var command = kv.Key;
+                var commandNames = GetCommandNamesText(kv.Value);
+                sb.Append("  ")
+                    .Append(commandNames.PadRight(maxCommandNamesWidth + 1))
+                    .Append(": ")
+                    .AppendLine(command.GetSummary());
             }
             return sb.ToString();
+        }
+
+        private Dictionary<IConsoleCommand, List<string>> GetCommandToCommandNamesMap()
+        {
+            var commandToNames = new Dictionary<IConsoleCommand, List<string>>();
+            foreach (var kv in _executor.Commands)
+            {
+                var command = kv.Value;
+                var commandName = kv.Key;
+                if (commandToNames.ContainsKey(command))
+                    commandToNames[command].Add(commandName);
+                else
+                    commandToNames[command] = new List<string> { commandName };
+            }
+            return commandToNames;
+        }
+
+        private string GetCommandNamesText(List<string> commandNames)
+        {
+            return string.Join(",", commandNames);
         }
     }
 }
