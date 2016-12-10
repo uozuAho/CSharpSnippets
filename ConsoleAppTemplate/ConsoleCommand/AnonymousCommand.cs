@@ -23,9 +23,9 @@ namespace ConsoleAppTemplate.ConsoleCommand
             return _summary;
         }
 
-        public override string GetHelp()
+        public override string GetHelp(string usagePrefix)
         {
-            return "";
+            return "Usage: " + usagePrefix;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace ConsoleAppTemplate.ConsoleCommand
 
         public string GetSummary() { return "print this help"; }
 
-        public string GetHelp() { return "no help for help :)"; }
+        public string GetHelp(string prefix) { return "no help for help :)"; }
 
         public void Execute(string[] args)
         {
@@ -44,7 +44,7 @@ namespace ConsoleAppTemplate.ConsoleCommand
         {
             if (!_executor.Commands.ContainsKey(command))
                 Console.WriteLine("Unknown command: " + command);
-            Console.WriteLine(_executor.Commands[command].GetHelp());
+            Console.WriteLine(_executor.Commands[command].GetHelp(GetUsagePrefix(command)));
         }
 
         protected string GetHeaderText()
@@ -58,6 +58,12 @@ namespace ConsoleAppTemplate.ConsoleCommand
         {
             var exe = Assembly.GetEntryAssembly().GetName().Name;
             return exe + " command [options]";
+        }
+
+        protected string GetUsagePrefix(string command)
+        {
+            var exe = Assembly.GetEntryAssembly().GetName().Name;
+            return exe + " " + command;
         }
 
         protected string GetAvailableCommandsText()

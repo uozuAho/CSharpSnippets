@@ -45,25 +45,5 @@ namespace ConsoleAppExample
             {
             }
         }
-
-        // TODO: move to own file, add options
-        private class HelloWorldCommand : BaseConsoleCommand
-        {
-            public override void Execute(string[] args)
-            {
-                Console.WriteLine("Hello world! args:");
-                Console.WriteLine(string.Join(", ", args));
-            }
-
-            public override string GetHelp()
-            {
-                return "hmm";
-            }
-
-            public override string GetSummary()
-            {
-                return "Prints a message to console";
-            }
-        }
     }
 }
