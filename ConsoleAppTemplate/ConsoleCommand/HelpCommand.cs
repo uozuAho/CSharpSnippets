@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConsoleAppTemplate.ConsoleCommand
 {
-    class HelpCommand : IConsoleCommand
+    public class HelpCommand : IConsoleCommand
     {
         private ConsoleCommandExecutor _executor;
 
@@ -48,14 +48,14 @@ namespace ConsoleAppTemplate.ConsoleCommand
 
         protected string GetHeaderText()
         {
-            var name = Assembly.GetExecutingAssembly().GetName().Name;
-            var version = Assembly.GetExecutingAssembly().GetName().Version;
+            var name = Assembly.GetEntryAssembly().GetName().Name;
+            var version = Assembly.GetEntryAssembly().GetName().Version;
             return name + ", " + version;
         }
 
         protected string GetUsageText()
         {
-            var exe = Assembly.GetExecutingAssembly().GetName().Name;
+            var exe = Assembly.GetEntryAssembly().GetName().Name;
             return exe + " command [options]";
         }
 

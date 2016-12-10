@@ -1,6 +1,6 @@
 ﻿namespace ConsoleAppTemplate.ConsoleCommand
 {
-    interface IConsoleCommand
+    public interface IConsoleCommand
     {
         string GetSummary();
         string GetHelp();

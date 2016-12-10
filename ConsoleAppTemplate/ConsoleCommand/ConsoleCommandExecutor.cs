@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ConsoleAppTemplate.ConsoleCommand
 {
-    class ConsoleCommandExecutor
+    public class ConsoleCommandExecutor
     {
         private IConsoleCommand _noArgsCommand;
         public Dictionary<string, IConsoleCommand> Commands = new Dictionary<string, IConsoleCommand>();
