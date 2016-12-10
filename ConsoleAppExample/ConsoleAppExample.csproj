@@ -56,7 +56,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleAppTemplate\ConsoleAppFramework.csproj">
+    <ProjectReference Include="..\ConsoleAppFramework\ConsoleAppFramework.csproj">
       <Project>{bd708085-715c-475b-bc80-2f2a4697a73d}</Project>
       <Name>ConsoleAppFramework</Name>
     </ProjectReference>
