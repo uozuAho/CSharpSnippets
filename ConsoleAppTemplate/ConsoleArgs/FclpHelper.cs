@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ConsoleAppTemplate.Args
 {
-    class FclpHelper
+    public class FclpHelper
     {
         /// <summary>
         /// Returns a nicely-formatted string of options information for the given parser

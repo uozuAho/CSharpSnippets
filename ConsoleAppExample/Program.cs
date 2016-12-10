@@ -14,6 +14,7 @@ namespace ConsoleAppExample
             RunWithArgString(executor, "help hello");
             RunWithArgString(executor, "hello");
             RunWithArgString(executor, "hello blah blah asdf 123");
+            RunWithArgString(executor, "hello /s poop");
             Console.WriteLine("done");
         }
 
