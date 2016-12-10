@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{BD708085-715C-475B-BC80-2F2A4697A73D}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ConsoleAppTemplate</RootNamespace>
     <AssemblyName>ConsoleAppTemplate</AssemblyName>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="FluentCommandLineParser, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentCommandLineParser.1.4.3\lib\net35\FluentCommandLineParser.dll</HintPath>
@@ -47,13 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleArgs\FclpHelper.cs" />
+    <Compile Include="Helpers\FclpHelper.cs" />
     <Compile Include="ConsoleCommand\AnonymousCommand.cs" />
     <Compile Include="ConsoleCommand\BaseConsoleCommand.cs" />
     <Compile Include="ConsoleCommand\HelpCommand.cs" />
     <Compile Include="ConsoleCommand\ConsoleCommandExecutor.cs" />
     <Compile Include="ConsoleCommand\IConsoleCommand.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

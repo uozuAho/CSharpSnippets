@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UozuUtils.Test.Manual", "Uo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtherMigrations", "OtherMigrations\OtherMigrations.csproj", "{5D5D4DE5-7AF0-4CDC-8C02-B313B67CB2F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppTemplate", "ConsoleAppTemplate\ConsoleAppTemplate.csproj", "{BD708085-715C-475B-BC80-2F2A4697A73D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppFramework", "ConsoleAppTemplate\ConsoleAppFramework.csproj", "{BD708085-715C-475B-BC80-2F2A4697A73D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppExample", "ConsoleAppExample\ConsoleAppExample.csproj", "{1044282B-C818-406C-8D33-0573DBEA9751}"
 EndProject

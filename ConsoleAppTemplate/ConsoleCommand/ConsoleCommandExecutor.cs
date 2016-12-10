@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ConsoleAppTemplate.ConsoleCommand
+namespace ConsoleAppFramework.ConsoleCommand
 {
     public class ConsoleCommandExecutor
     {

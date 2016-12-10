@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConsoleAppTemplate.ConsoleCommand
+namespace ConsoleAppFramework.ConsoleCommand
 {
     class AnonymousCommand : BaseConsoleCommand
     {

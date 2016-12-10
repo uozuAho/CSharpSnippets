@@ -1,4 +1,4 @@
-﻿using ConsoleAppTemplate.ConsoleCommand;
+﻿using ConsoleAppFramework.ConsoleCommand;
 using System;
 
 namespace ConsoleAppExample

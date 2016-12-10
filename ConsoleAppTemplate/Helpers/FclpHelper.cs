@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using System.Text;
 
-namespace ConsoleAppTemplate.Args
+namespace ConsoleAppFramework.Helpers
 {
     public class FclpHelper
     {

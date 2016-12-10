@@ -1,4 +1,4 @@
-﻿namespace ConsoleAppTemplate.ConsoleCommand
+﻿namespace ConsoleAppFramework.ConsoleCommand
 {
     public abstract class BaseConsoleCommand : IConsoleCommand
     {

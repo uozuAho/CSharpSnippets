@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace ConsoleAppTemplate.ConsoleCommand
+namespace ConsoleAppFramework.ConsoleCommand
 {
     public class HelpCommand : IConsoleCommand
     {

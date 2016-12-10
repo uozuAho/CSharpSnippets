@@ -1,5 +1,5 @@
-﻿using ConsoleAppTemplate.Args;
-using ConsoleAppTemplate.ConsoleCommand;
+﻿using ConsoleAppFramework.Helpers;
+using ConsoleAppFramework.ConsoleCommand;
 using Fclp;
 using System;
 using System.Text;
