@@ -14,6 +14,7 @@ using CSharpSnippets.Database.MigSharp.Simple;
 using CSharpSnippets.Database.MigSharp.MultiModule;
 using CSharpSnippets.Database.MigSharp.MultiDb;
 using CSharpSnippets.Serialization;
+using CSharpSnippets.Database.MigSharp.ExistingDb;
 
 namespace CSharpSnippets
 {
@@ -43,6 +44,7 @@ namespace CSharpSnippets
             //MigSharpMultiModuleExample.Run(@"Data Source=localhost\sql2016;Initial Catalog=MigSharpExample;Integrated Security=SSPI;");
             //MigSharpMultiDbExample.Run(@"Data Source=localhost\sql2016;Initial Catalog=MigSharpExample;Integrated Security=SSPI;",
             //    @"Data Source=localhost\sql2016;Initial Catalog=MigSharpExampleOther;Integrated Security=SSPI;");
+            MigSharpExistingDbExample.Run();
 
             //LoggingExample.Run();
             //FluentCommandLineParserExample.Run();
@@ -53,7 +55,7 @@ namespace CSharpSnippets
             //XmlExtraAttributeExample.Run();
             //Packaging.PackagingExample();
             //JsonNet.JsonNetExample();
-            JsonNet.JsonNetDeserializeWithoutType();
+            //JsonNet.JsonNetDeserializeWithoutType();
 
             Console.WriteLine("Press any key ...");
             Console.ReadKey();

@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppFramework", "Cons
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppExample", "ConsoleAppExample\ConsoleAppExample.csproj", "{1044282B-C818-406C-8D33-0573DBEA9751}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigSharpExistingDbMigrations", "MigSharpExistingDbMigrations\MigSharpExistingDbMigrations.csproj", "{EFFBCDC6-E98D-4E64-92D3-F85EF607C97F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{1044282B-C818-406C-8D33-0573DBEA9751}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1044282B-C818-406C-8D33-0573DBEA9751}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1044282B-C818-406C-8D33-0573DBEA9751}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFFBCDC6-E98D-4E64-92D3-F85EF607C97F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFFBCDC6-E98D-4E64-92D3-F85EF607C97F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFFBCDC6-E98D-4E64-92D3-F85EF607C97F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFFBCDC6-E98D-4E64-92D3-F85EF607C97F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

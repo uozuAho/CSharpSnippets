@@ -91,6 +91,7 @@
     <Compile Include="Csv\ConfigurableCsv\CsvFile\CsvFileClient.cs" />
     <Compile Include="Database\DapperExamples.cs" />
     <Compile Include="Database\DataTableExamples.cs" />
+    <Compile Include="Database\MigSharp\ExistingDb\MigSharpExistingDbExample.cs" />
     <Compile Include="Database\MigSharp\MultiDb\MigSharpMultiDbExample.cs" />
     <Compile Include="Database\MigSharp\MultiModule\MigSharpMultiModuleExample.cs" />
     <Compile Include="Database\MigSharp\MultiModule\Module1\Migrations\mig_01.cs" />
@@ -160,6 +161,10 @@
     <None Include="Xml\xml2cs.bat" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MigSharpExistingDbMigrations\MigSharpExistingDbMigrations.csproj">
+      <Project>{effbcdc6-e98d-4e64-92d3-f85ef607c97f}</Project>
+      <Name>MigSharpExistingDbMigrations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OtherMigrations\OtherMigrations.csproj">
       <Project>{5d5d4de5-7af0-4cdc-8c02-b313b67cb2f0}</Project>
       <Name>OtherMigrations</Name>
