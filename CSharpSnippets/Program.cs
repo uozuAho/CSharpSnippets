@@ -15,6 +15,7 @@ using CSharpSnippets.Database.MigSharp.MultiModule;
 using CSharpSnippets.Database.MigSharp.MultiDb;
 using CSharpSnippets.Serialization;
 using CSharpSnippets.Database.MigSharp.ExistingDb;
+using CSharpSnippets.CSharpLanguage;
 
 namespace CSharpSnippets
 {
@@ -26,6 +27,8 @@ namespace CSharpSnippets
             //AttributeExamples.Run();
             //GenericTypeExample.Run();
             // ReflectionExample.Run();
+            //EventsExample.Run();
+            EventLeakExample.Run();
 
             // .NET framework
             //MefCalculatorExample.Run();
@@ -44,7 +47,7 @@ namespace CSharpSnippets
             //MigSharpMultiModuleExample.Run(@"Data Source=localhost\sql2016;Initial Catalog=MigSharpExample;Integrated Security=SSPI;");
             //MigSharpMultiDbExample.Run(@"Data Source=localhost\sql2016;Initial Catalog=MigSharpExample;Integrated Security=SSPI;",
             //    @"Data Source=localhost\sql2016;Initial Catalog=MigSharpExampleOther;Integrated Security=SSPI;");
-            MigSharpExistingDbExample.Run();
+            //MigSharpExistingDbExample.Run();
 
             //LoggingExample.Run();
             //FluentCommandLineParserExample.Run();

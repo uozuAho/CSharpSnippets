@@ -2,8 +2,25 @@
 
 namespace CSharpSnippets.CSharpLanguage
 {
-    class Events
+    class EventsExample
     {
+        Listener l1 = new Listener("listener 1");
+        Listener l2 = new Listener("listener 2");
+        Metronome m = new Metronome();
+
+        public static void Run()
+        {
+            var ex = new EventsExample();
+            ex.RunImpl();
+        }
+
+        private void RunImpl()
+        {
+            l1.Subscribe(m);
+            l2.Subscribe(m);
+            m.Start();
+        }
+
         public class Metronome
         {
             public event TickHandler TickHandler1;
@@ -16,10 +33,7 @@ namespace CSharpSnippets.CSharpLanguage
                 {
                     System.Threading.Thread.Sleep(1000);
                     Console.WriteLine("Metronome: tick");
-                    if (TickHandler1 != null)
-                    {
-                        TickHandler1(this, e);
-                    }
+                    TickHandler1?.Invoke(this, e);
                 }
             }
         }
@@ -42,16 +56,6 @@ namespace CSharpSnippets.CSharpLanguage
             {
                 Console.WriteLine(Name + ": HEARD IT");
             }
-        }
-
-        public static void Run()
-        {
-            Metronome m = new Metronome();
-            Listener l1 = new Listener("listener 1");
-            Listener l2 = new Listener("listener 2");
-            l1.Subscribe(m);
-            l2.Subscribe(m);
-            m.Start();
         }
     }
 }

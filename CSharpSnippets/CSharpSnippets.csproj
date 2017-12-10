@@ -79,6 +79,7 @@
     <Compile Include="ArgParse\FluentCommandLineParserExample.cs" />
     <Compile Include="CSharpLanguage\Attributes\AttributeExamples.cs" />
     <Compile Include="CSharpLanguage\Delegates.cs" />
+    <Compile Include="CSharpLanguage\EventLeakExample.cs" />
     <Compile Include="CSharpLanguage\Events.cs" />
     <Compile Include="CSharpLanguage\ExtensionMethods\ExtensionMethodExample.cs" />
     <Compile Include="CSharpLanguage\Generics\MyGenericType.cs" />
