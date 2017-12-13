@@ -24,55 +24,56 @@ namespace CSharpSnippets.CSharpLanguage
 
             // TODO: Uncomment this after examining the heap below
             // unsubscribe from event source
-            foreach (var sub in subscribers)
-            {
-                sub.Unsubscribe(source);
-            }
+            //foreach (var sub in subscribers)
+            //{
+            //    sub.Unsubscribe(source);
+            //}
 
             // done. remove subscribers
             subscribers.Clear();
-            subscribers = null;
+            GC.Collect();
 
             // put a breakpoint here. Are we done? Are the subscribers gone?
-            // NOTE: one subscriber hangs around, possibly due to the debugger, or 
-            //       a local variable still holds a reference to it
+            // NOTE: after the unsubsribe fix, one subscriber hangs around,
+            //       possibly due to the debugger, or a local variable still
+            //       holds a reference to it
             Console.WriteLine("done");
         }
-    }
 
-    class EventSource
-    {
-        public void GiveSignal(string name)
+        private class EventSource
         {
-            Console.WriteLine($"EventSource emitting: {name}");
-            Signal(this, new SignalArgs { Name = name });
+            public void GiveSignal(string name)
+            {
+                Console.WriteLine($"EventSource emitting: {name}");
+                Signal(this, new SignalArgs { Name = name });
+            }
+
+            public event EventHandler<SignalArgs> Signal;
         }
 
-        public event EventHandler<SignalArgs> Signal;
-    }
-
-    class SignalArgs
-    {
-        public string Name { get; set; }
-    }
-
-    class EventSubscriber
-    {
-        public string Name { get; set; }
-
-        public void Subscribe(EventSource source)
+        private class SignalArgs
         {
-            source.Signal += Respond;
+            public string Name { get; set; }
         }
 
-        public void Unsubscribe(EventSource source)
+        private class EventSubscriber
         {
-            source.Signal -= Respond;
-        }
+            public string Name { get; set; }
 
-        public void Respond(object sender, SignalArgs args)
-        {
-            Console.WriteLine($"Subscriber {Name} received: {args.Name}");
+            public void Subscribe(EventSource source)
+            {
+                source.Signal += Respond;
+            }
+
+            public void Unsubscribe(EventSource source)
+            {
+                source.Signal -= Respond;
+            }
+
+            public void Respond(object sender, SignalArgs args)
+            {
+                Console.WriteLine($"Subscriber {Name} received: {args.Name}");
+            }
         }
     }
 }

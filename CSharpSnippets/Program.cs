@@ -29,6 +29,7 @@ namespace CSharpSnippets
             // ReflectionExample.Run();
             //EventsExample.Run();
             EventLeakExample.Run();
+            //WeakEventExample.Run();
 
             // .NET framework
             //MefCalculatorExample.Run();
