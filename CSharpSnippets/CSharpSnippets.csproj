@@ -83,7 +83,6 @@
     <Compile Include="CSharpLanguage\WeakEvents\EventSubscriber.cs" />
     <Compile Include="CSharpLanguage\WeakEvents\SignalArgs.cs" />
     <Compile Include="CSharpLanguage\WeakEvents\WeakEventExamples.cs" />
-    <Compile Include="CSharpLanguage\EventLeakExample.cs" />
     <Compile Include="CSharpLanguage\Events.cs" />
     <Compile Include="CSharpLanguage\ExtensionMethods\ExtensionMethodExample.cs" />
     <Compile Include="CSharpLanguage\Generics\MyGenericType.cs" />

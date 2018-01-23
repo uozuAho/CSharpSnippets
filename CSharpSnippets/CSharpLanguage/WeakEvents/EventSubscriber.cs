@@ -14,7 +14,7 @@ namespace CSharpSnippets.CSharpLanguage.WeakEvents
 
         public void SubscribeWithWeakEventManager(EventSource source)
         {
-            WeakEventManager<EventSource, SignalArgs>.AddHandler(source, nameof(source.Signal), new EventHandler<SignalArgs> (Respond));
+            WeakEventManager<EventSource, SignalArgs>.AddHandler(source, nameof(source.Signal), Respond);
         }
 
         public void UnsubscribeMinusEquals(EventSource source)
