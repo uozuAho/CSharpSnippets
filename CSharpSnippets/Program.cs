@@ -16,20 +16,21 @@ using CSharpSnippets.Database.MigSharp.MultiDb;
 using CSharpSnippets.Serialization;
 using CSharpSnippets.Database.MigSharp.ExistingDb;
 using CSharpSnippets.CSharpLanguage;
+using CSharpSnippets.CSharpLanguage.WeakEvents;
 
 namespace CSharpSnippets
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             // language
             //AttributeExamples.Run();
             //GenericTypeExample.Run();
             // ReflectionExample.Run();
             //EventsExample.Run();
-            EventLeakExample.Run();
-            //WeakEventExample.Run();
+            //EventLeakExample.Run();
+            WeakEventExamples.Run();
 
             // .NET framework
             //MefCalculatorExample.Run();
