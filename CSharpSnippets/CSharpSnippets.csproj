@@ -89,6 +89,7 @@
     <Compile Include="CSharpLanguage\Reflection\ReflectionExample.cs" />
     <Compile Include="CSharpLanguage\Reflection\SillyModel.cs" />
     <Compile Include="CSharpLanguage\Reflection\SillyModelStore.cs" />
+    <Compile Include="CSharpLanguage\WeakEvents\WeakEventListener.cs" />
     <Compile Include="Csv\CsvHelperTest.cs" />
     <Compile Include="Csv\ConfigurableCsv\CsvFile\CsvFile.cs" />
     <Compile Include="Csv\ConfigurableCsv\CsvFile\CsvFile.Definition.cs" />

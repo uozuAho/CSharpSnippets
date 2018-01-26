@@ -11,5 +11,10 @@ namespace CSharpSnippets.CSharpLanguage.WeakEvents
             Console.WriteLine($"EventSource emitting: {name}");
             Signal?.Invoke(this, new SignalArgs {Name = name});
         }
+
+        ~EventSource()
+        {
+            Console.WriteLine("EventSource finalised");
+        }
     }
 }
